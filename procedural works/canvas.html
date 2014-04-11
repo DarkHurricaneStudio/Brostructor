@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		<title>Canvas test</title>
+		<script src="utils.js"></script>
+		<script type="text/javascript" >
+			/*
+			* load when the window is loaded
+			*/
+			function startGame() {
+			
+				// we search the canvas
+				var canvas = document.getElementById("gameCanvas");
+				// we load 2d context
+				var context = canvas.getContext("2d");
+				// we use it in the display section
+				var map = Utils.imageDataPerlinNoise(1024,256,80,64,64,0.5,8,context);
+				context.fillRect(0,0,780,490);
+				for (var i = 0;i<780;i++){
+					var y = -( (i - 780/2)*(i-780/2) * 64 / (780*780/4));
+					context.putImageData(map[i],i,y);
+				}
+			}
+		</script>	
+	</head>
+
+	<body onload="startGame()">
+		<center>
+		
+			This is a test !
+			<br />
+			No ! This is <b>SPARTA</b> !
+			<br />
+			
+			<canvas id="gameCanvas" width="780" height="490">
+				
+				Not working ? I'm sorry for you bro' !
+				
+			</canvas>
+			
+		</center>
+		
+	</body>
+	
+</html>
