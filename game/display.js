@@ -18,7 +18,7 @@ Display.prototype.drawPlanet = function(planet) {
 	for(var i = 0; i <this.width;i++) {
 		var y = Utils.getPlanetCurvePosition(i,this.width,64);
 		var mapPos = Math.abs(planet.getOffset()+i)%planet.getWidth();
-		if (planet.getOffset < 0) {
+		if ((planet.getOffset()+i) < 0) {
 			mapPos = planet.getWidth()-mapPos;
 		}
 		this.context.putImageData(map[mapPos],i,y);

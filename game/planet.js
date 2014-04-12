@@ -26,6 +26,11 @@ Planet.prototype.generate = function(context) {
 };
 
 Planet.prototype.setOffset = function(newOffset) {
+	if (newOffset > this.getWidth()) {
+		newOffset = newOffset%this.getWidth();
+	} else if (-newOffset > this.getWidth()) {
+		newOffset = - ((-newOffset)%this.getWidth());
+	}
 	this.offset = newOffset;
 };
 
