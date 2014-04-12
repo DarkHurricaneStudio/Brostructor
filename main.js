@@ -1,6 +1,8 @@
+var elem = document.getElementById('jeu');
+var context = elem.getContext('2d');;
+
 window.addEventListener('load', function() {
-    var elem = document.getElementById('jeu');
-    var context = elem.getContext('2d');;
+
 
     // If we don't get the canvacs, stop
     if (!elem || !elem.getContext) {
@@ -25,7 +27,8 @@ function refreshGame() {
     // Clear the canvas
     context.clearRect(0, 0, elem.width, elem.height);
 
-
+    context.fillStyle = "rgb(255,0,0)";
+    context.fillRect(0, 0, elem.width, elem.height);
 }
 
 function mainLoop() {
