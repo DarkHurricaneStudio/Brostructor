@@ -11,7 +11,8 @@ Engine.prototype.enemies = new Array();
 // @var cities an array of the cities
 Engine.prototype.cities = new Array();
 // @var player the player
-//Engine.prototype.player = new Player();
+Engine.prototype.player = new Player();
+// @var cameraSpeed the speed of the camera
 
 // methods
 Engine.prototype.generateLevel = function(context) {
@@ -24,9 +25,11 @@ Engine.prototype.checkInputs = function (inputs,context) {
 
 	// we check the movements
 	if (inputs[37] == true) { // left arrow
-		// we move left
+		this.player.move('left');
 	} else if (inputs[39] == true) { // right arrow
-		// we move right
+		this.player.move('right');
+	} else {
+		this.player.move('none');
 	}
 
 	if (inputs[32] == true) { //
@@ -36,6 +39,14 @@ Engine.prototype.checkInputs = function (inputs,context) {
 	}
 
 	
+};
+
+Engine.prototype.update = function() {
+	// we update the camera speed
+	//this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
+	this.cameraSpeed = this.player.getSpeedY();
+	// we update the planet position
+	this.planet.setOffset(this.planet.getOffset()+this.cameraSpeed);
 };
 
 //getters

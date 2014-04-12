@@ -25,6 +25,7 @@ window.addEventListener('load', function() {
 function gameUpdate() {
     // Bro
     engine.checkInputs(keys,context);
+    engine.update();
 }
 
 function refreshGame() {

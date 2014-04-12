@@ -1,5 +1,6 @@
 // We create the class Planet
 var Planet = function() {
+	this.offset = 0;
 };
 
 // attributes
@@ -28,6 +29,8 @@ Planet.prototype.setOffset = function(newOffset) {
 	this.offset = newOffset;
 };
 
+
+
 // getters
 Planet.prototype.getMap = function() {
 	return this.map;
@@ -35,4 +38,8 @@ Planet.prototype.getMap = function() {
 
 Planet.prototype.getOffset = function() {
 	return this.offset;
+};
+
+Planet.prototype.getWidth = function() {
+	return this.map.length;
 };
