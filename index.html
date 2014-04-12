@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title> The Brostructor </title>
-	<link rel="stylesheet" type="text/css" href="styleBrostructor.css">
-</head>
+	<head>
+		<title> The Brostructor </title>
+		<link rel="stylesheet" type="text/css" href="styles/styleBrostructor.css">
+	</head>
 
-<body>
-	<h1> Test </h1>
-	<canvas id="jeu" width="480" height="666">
-		Le navigateur ne supporte pas les canvas. Diantre.
-	</canvas>
-	<script type="text/javascript" src="main.js"></script>
-</body>
+	<body>
+		<h1> Test </h1>
+		<canvas id="jeu" width="480" height="666">
+			Le navigateur ne supporte pas les canvas. Diantre.
+		</canvas>
+
+
+		<!-- We load all the scripts -->
+		<script type="text/javascript" src="game/utils.js"></script>
+		<script type="text/javascript" src="game/InputHandler.js"></script>
+		<script type="text/javascript" src="game/main.js"></script>
+	</body>
 
 </html>
