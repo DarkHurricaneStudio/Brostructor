@@ -1,5 +1,6 @@
 // We create the class Planet
-function Planet() = {}
+var Planet = function() {
+};
 
 // attributes
 // @var map an array of 'length' imageData (1px*'height'px)
@@ -20,18 +21,18 @@ Planet.prototype.generate = function(context) {
 	var nbOctaves = 4;
 	var pas = 64;
 	var max = 80;
-	this.map = Utils.imageDataPerlinNoise(width,length,max,pas,pas,peristance,nbOcatves,context);
-}
+	this.map = Utils.imageDataPerlinNoise(width,length,max,pas,pas,persistance,nbOctaves,context);
+};
 
 Planet.prototype.setOffset = function(newOffset) {
 	this.offset = newOffset;
-}
+};
 
 // getters
 Planet.prototype.getMap = function() {
 	return this.map;
-}
+};
 
 Planet.prototype.getOffset = function() {
 	return this.offset;
-}
+};

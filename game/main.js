@@ -1,5 +1,8 @@
 var elem = document.getElementById('jeu');
-var context = elem.getContext('2d');;
+var context = elem.getContext('2d');
+var display = new Display(elem);
+var engine = new Engine();
+engine.generateLevel(context);
 
 window.addEventListener('load', function() {
 
@@ -21,6 +24,7 @@ window.addEventListener('load', function() {
 
 function gameUpdate() {
     // Bro
+    engine.checkInputs(keys,context);
 }
 
 function refreshGame() {
@@ -29,6 +33,9 @@ function refreshGame() {
 
     context.fillStyle = "rgb(255,0,0)";
     context.fillRect(0, 0, elem.width, elem.height);
+
+    // we draw
+    display.draw(engine);
 }
 
 function mainLoop() {

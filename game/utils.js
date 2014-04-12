@@ -230,3 +230,9 @@ Utils.imageDataPerlinNoise = function (width, length, maxHeight, stepX, stepY,pe
 	return images;
 	
 }
+
+Utils.getPlanetCurvePosition = function(x,canvasWidth,deviation) {
+
+	return ( -( (x - canvasWidth/2)*(x-canvasWidth/2) * deviation / (canvasWidth*canvasWidth/4)) );
+
+}
