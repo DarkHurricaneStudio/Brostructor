@@ -3,6 +3,7 @@ var Player = function () {};
 // attributes
 Player.prototype.speedY = 0;
 Player.prototype.CONST_SPEED_Y = 4;
+Player.prototype.CONST_SPEED_X = 2;
 
 // methods
 Player.prototype.move = function (direction) {

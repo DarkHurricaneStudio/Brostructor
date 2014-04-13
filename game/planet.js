@@ -17,7 +17,7 @@ Planet.prototype.offset = 0;
 Planet.prototype.generate = function(context) {
 	// we define some constants
 	var width = 2048;
-	var length = 256;
+	var length = 128;
 	var persistance = 0.5;
 	var nbOctaves = 4;
 	var pas = 64;
