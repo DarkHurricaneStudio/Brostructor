@@ -17,6 +17,9 @@ window.addEventListener('load', function() {
         return;
     }
 
+    // Initialisation
+    display.load();
+
     // Main loop at 80FPS
     setInterval(mainLoop, 10);
 }, false);
@@ -24,16 +27,13 @@ window.addEventListener('load', function() {
 
 function gameUpdate() {
     // Bro
-    engine.checkInputs(keys,context);
+    engine.checkInputs(keys, context);
     engine.update();
 }
 
 function refreshGame() {
     // Clear the canvas
     context.clearRect(0, 0, elem.width, elem.height);
-
-    context.fillStyle = "rgb(255,0,0)";
-    context.fillRect(0, 0, elem.width, elem.height);
 
     // we draw
     display.draw(engine);
