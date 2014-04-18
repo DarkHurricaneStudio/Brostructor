@@ -6,6 +6,7 @@ var Planet = function() {
 // attributes
 // @var map an array of 'length' imageData (1px*'height'px)
 Planet.prototype.map = new Array();
+Planet.width = 2048;
 
 
 // methods
@@ -15,7 +16,7 @@ Planet.prototype.map = new Array();
 // @param context the context from the canvas
 Planet.prototype.generate = function(context) {
 	// we define some constants
-	var width = 2048;
+	var width = Planet.width;
 	var length = 128;
 	var persistance = 0.5;
 	var nbOctaves = 4;
@@ -32,7 +33,3 @@ Planet.prototype.getMap = function() {
 	return this.map;
 };
 
-
-Planet.prototype.getWidth = function() {
-	return this.map.length;
-};

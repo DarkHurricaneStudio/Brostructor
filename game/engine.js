@@ -44,23 +44,30 @@ Engine.prototype.checkInputs = function(inputs) {
     
 };
 
-Engine.prototype.normaliseValue = function(old_x) {
-    var x = Math.abs(this.offset + old_x) % this.planet.getWidth();
-    if ((this.offset + old_x) < 0) {
-        x = this.planet.getWidth() - x;
+Engine.prototype.convertPosition = function(old_x) {
+
+    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x)/Planet.width)*Planet.width);
+     if (x < 0) {
+        x = Planet.width - x;
     }
     return x;
 };
 
+Engine.normaliseValue = function(old_x) {
+    var x = old_x;
+    if (old_x >= Planet.width) {
+        x = old_x - Planet.width;
+    } else if (-old_x >= Planet.width) {
+        x = old_x + Planet.width;
+    }
+    return x;
+}
+
 
 Engine.prototype.setOffset = function(newOffset) {
-	if (newOffset > this.planet.getWidth()) {
-		newOffset = newOffset%this.planet.getWidth();
-	} else if (-newOffset > this.planet.getWidth()) {
-		newOffset = - ((-newOffset)%this.planet.getWidth());
-	}
 
-	this.offset = newOffset;
+	this.offset = Engine.normaliseValue(newOffset);
+
 };
 
 Engine.prototype.update = function() {
@@ -75,11 +82,11 @@ Engine.prototype.update = function() {
 
     // we update the camera speed
     //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
-    this.cameraSpeed = this.player.getSpeedX();
+    this.cameraSpeed = -this.player.getSpeedX();
 
     // we update the offset position
     if (this.cameraSpeed != 0) {
-        this.setOffset(this.offset - this.cameraSpeed);
+        this.setOffset(this.offset + this.cameraSpeed);
     }
 };
 

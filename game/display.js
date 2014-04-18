@@ -25,19 +25,19 @@ Display.prototype.drawPlanet = function(planet, engine) {
     var map = planet.getMap();
     for (var i = 0; i < this.width; i++) {
         var y = Utils.getPlanetCurvePosition(i, this.width, 64);
-        var mapPos = engine.normaliseValue(-i);
+        var mapPos = engine.convertPosition(i);
         this.context.putImageData(map[mapPos], i, y);
     }
 };
 
 Display.prototype.drawPlayer = function(player, engine) {
 	this.context.fillStyle = '#ff0000';
-	this.context.fillRect(engine.normaliseValue(player.getPosX()),player.getPosY(),32,32);
+	this.context.fillRect(engine.convertPosition(player.getPosX()),player.getPosY(),32,32);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
 	this.context.fillStyle = '#00ff00';
-	var x = engine.normaliseValue(enemy.getPosX());
+	var x = engine.convertPosition(enemy.getPosX());
 	var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY() + 128;
 	this.context.fillRect(x,y,32,32);
 }
