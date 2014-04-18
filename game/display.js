@@ -49,7 +49,7 @@ Display.prototype.draw = function(engine) {
     for(var i = 0; i < engine.getEnemies().length;i++) {
     	this.drawEnemy(engine.getEnemies()[i],engine);
     }
-};
+}; 
 
 Display.prototype.load = function() {
     this.imageBackground = new Image();
