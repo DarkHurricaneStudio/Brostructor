@@ -25,7 +25,7 @@ Display.prototype.drawPlanet = function(planet, engine) {
     var map = planet.getMap();
     for (var i = 0; i < this.width; i++) {
         var y = Utils.getPlanetCurvePosition(i, this.width, 64);
-        var mapPos = engine.convertPosition(i);
+        var mapPos = engine.convertPosition(-i);
         this.context.putImageData(map[mapPos], i, y);
     }
 };

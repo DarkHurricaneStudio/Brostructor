@@ -47,9 +47,9 @@ Engine.prototype.checkInputs = function(inputs) {
 Engine.prototype.convertPosition = function(old_x) {
 
     var x = (this.offset + old_x) - (Math.floor((this.offset + old_x)/Planet.width)*Planet.width);
-     if (x < 0) {
-        x = Planet.width - x;
-    }
+     //if (x < 0) {
+     //   x = Planet.width - x;
+    //}
     return x;
 };
 
