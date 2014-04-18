@@ -19,7 +19,14 @@ Engine.prototype.player = new Player();
 // methods
 Engine.prototype.generateLevel = function(context) {
 
+    // we generate the planet
     this.planet.generate(context);
+    // we generate the enemies
+    // todo
+    // TEST - one enemy because fuck you, that's why
+    this.enemies[0] = new Enemy(30,120);
+    // we generate the cities
+    // todo
 
 };
 
@@ -57,12 +64,20 @@ Engine.prototype.setOffset = function(newOffset) {
 };
 
 Engine.prototype.update = function() {
+
 	// we update the player position
     this.player.updatePosition();
+
+    // we update enemies position
+    for(var i = 0;i<this.enemies.length;i++) {
+        this.enemies[i].updatePosition();
+    }
+
     // we update the camera speed
     //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
     this.cameraSpeed = this.player.getSpeedX();
-    // we update the planet position
+
+    // we update the offset position
     if (this.cameraSpeed != 0) {
         this.setOffset(this.offset - this.cameraSpeed);
     }
@@ -80,3 +95,7 @@ Engine.prototype.getPlayer = function() {
 Engine.prototype.getOffset = function() {
     return this.offset;
 };
+
+Engine.prototype.getEnemies = function() {
+    return this.enemies;
+}

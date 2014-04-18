@@ -35,10 +35,20 @@ Display.prototype.drawPlayer = function(player, engine) {
 	this.context.fillRect(engine.normaliseValue(player.getPosX()),player.getPosY(),32,32);
 }
 
+Display.prototype.drawEnemy = function(enemy, engine) {
+	this.context.fillStyle = '#00ff00';
+	var x = engine.normaliseValue(enemy.getPosX());
+	var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY() + 128;
+	this.context.fillRect(x,y,32,32);
+}
+
 Display.prototype.draw = function(engine) {
     this.drawBackground();
     this.drawPlanet(engine.getPlanet(),engine);
     this.drawPlayer(engine.getPlayer(),engine);
+    for(var i = 0; i < engine.getEnemies().length;i++) {
+    	this.drawEnemy(engine.getEnemies()[i],engine);
+    }
 };
 
 Display.prototype.load = function() {
