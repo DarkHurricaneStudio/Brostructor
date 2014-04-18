@@ -6,8 +6,7 @@ var Planet = function() {
 // attributes
 // @var map an array of 'length' imageData (1px*'height'px)
 Planet.prototype.map = new Array();
-// @var offset the offset used to display the planet
-Planet.prototype.offset = 0;
+
 
 // methods
 
@@ -25,14 +24,6 @@ Planet.prototype.generate = function(context) {
 	this.map = Utils.imageDataPerlinNoise(width,length,max,pas,pas,persistance,nbOctaves,context);
 };
 
-Planet.prototype.setOffset = function(newOffset) {
-	if (newOffset > this.getWidth()) {
-		newOffset = newOffset%this.getWidth();
-	} else if (-newOffset > this.getWidth()) {
-		newOffset = - ((-newOffset)%this.getWidth());
-	}
-	this.offset = newOffset;
-};
 
 
 
@@ -41,9 +32,6 @@ Planet.prototype.getMap = function() {
 	return this.map;
 };
 
-Planet.prototype.getOffset = function() {
-	return this.offset;
-};
 
 Planet.prototype.getWidth = function() {
 	return this.map.length;

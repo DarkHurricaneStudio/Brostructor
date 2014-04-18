@@ -1,24 +1,44 @@
 var Player = function() {};
 
-// attributes
-Player.prototype.speedY = 0;
-Player.prototype.CONST_SPEED_Y = 3;
-Player.prototype.CONST_SPEED_X = 0.1;
+// fields
+Player.prototype.speedY = -0.01;
+Player.prototype.CONST_SPEED_X = 3;
+Player.prototype.speedX = 0;
+Player.prototype.posX = 512/2-32/2; // middle of the canvas - middle of the player
+Player.prototype.posY = 600; // because why not
+
 
 // methods
 Player.prototype.move = function(direction) {
 
     if (direction == 'right') {
-        this.speedY = this.CONST_SPEED_Y;
+        this.speedX = this.CONST_SPEED_X;
     } else if (direction == 'left') {
-        this.speedY = -this.CONST_SPEED_Y;
+        this.speedX = -this.CONST_SPEED_X;
     } else {
-        this.speedY = 0;
+        this.speedX = 0;
     }
 
 };
 
+Player.prototype.updatePosition = function() {
+	this.posY += this.speedY;
+	this.posX += this.speedX;
+	// we update Y speed because of gravity (gravity is a bitch)
+	this.speedY -= 0.0001;
+}
+
+
 //getters
-Player.prototype.getSpeedY = function() {
-    return this.speedY;
+Player.prototype.getSpeedX = function() {
+    return this.speedX;
 };
+
+
+Player.prototype.getPosX = function() {
+	return this.posX;
+}
+
+Player.prototype.getPosY = function() {
+	return this.posY;
+}

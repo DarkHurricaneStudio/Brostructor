@@ -4,6 +4,8 @@ var Engine = function() {};
 // attributes
 // @var offset the offset used for the display
 Engine.prototype.offset = 0;
+// @var cameraSpeed the speed of the camera
+Engine.prototype.cameraSpeed = 0;
 // @var planet the planet
 Engine.prototype.planet = new Planet();
 // @var enemies an array of the enemies
@@ -21,7 +23,7 @@ Engine.prototype.generateLevel = function(context) {
 
 };
 
-Engine.prototype.checkInputs = function(inputs, context) {
+Engine.prototype.checkInputs = function(inputs) {
 
     // we check the movements
     if (inputs[37] == true) { // left arrow
@@ -32,30 +34,49 @@ Engine.prototype.checkInputs = function(inputs, context) {
         this.player.move('none');
     }
 
-    if (inputs[32] == true) { // Space key
-        console.log("création nouvelle pla");
+    
+};
 
-        var startTime = new Date().getTime();
-
-        this.generateLevel(context);
-
-        var generationTime = new Date().getTime();
-        generationTime -= startTime;
-        console.log("fin ! Temps pris pour une génération : " + generationTime);
+Engine.prototype.normaliseValue = function(old_x) {
+    var x = Math.abs(this.offset + old_x) % this.planet.getWidth();
+    if ((this.offset + old_x) < 0) {
+        x = this.planet.getWidth() - x;
     }
+    return x;
+};
 
 
+Engine.prototype.setOffset = function(newOffset) {
+	if (newOffset > this.planet.getWidth()) {
+		newOffset = newOffset%this.planet.getWidth();
+	} else if (-newOffset > this.planet.getWidth()) {
+		newOffset = - ((-newOffset)%this.planet.getWidth());
+	}
+
+	this.offset = newOffset;
 };
 
 Engine.prototype.update = function() {
+	// we update the player position
+    this.player.updatePosition();
     // we update the camera speed
     //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
-    this.cameraSpeed = this.player.getSpeedY();
+    this.cameraSpeed = this.player.getSpeedX();
     // we update the planet position
-    this.planet.setOffset(this.planet.getOffset() + this.cameraSpeed);
+    if (this.cameraSpeed != 0) {
+        this.setOffset(this.offset - this.cameraSpeed);
+    }
 };
 
 //getters
 Engine.prototype.getPlanet = function() {
     return this.planet;
+};
+
+Engine.prototype.getPlayer = function() {
+    return this.player;
+};
+
+Engine.prototype.getOffset = function() {
+    return this.offset;
 };
