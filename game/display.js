@@ -31,35 +31,47 @@ Display.prototype.drawPlanet = function(planet, engine) {
 };
 
 Display.prototype.drawPlayer = function(player, engine) {
-	this.context.fillStyle = '#ff0000';
-	this.context.fillRect(engine.convertPosition(player.getPosX()),player.getPosY(),32,32);
+    // Player
+    this.context.fillStyle = '#ff0000';
+    this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), 32, 32);
+
+    // Lasers
+    this.context.fillStyle = '#ffffff';
+    var lasers = player.getLasers();
+    for (var i = 0; i < lasers.length; i++) {
+        var las = lasers[i];
+        this.context.fillRect(las.getPosX, las.getPosY, 5, 20);
+    };
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
-	this.context.fillStyle = '#00ff00';
-	var x = engine.convertPosition(enemy.getPosX());
-	var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY() + 64;
-	this.context.fillRect(x,y,32,32);
+    this.context.fillStyle = '#00ff00';
+    var x = engine.convertPosition(enemy.getPosX());
+    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY() + 128;
+    this.context.fillRect(x, y, 32, 32);
+
 }
 
-Display.prototype.drawCity = function(city,engine) {
+Display.prototype.drawCity = function(city, engine) {
     this.context.fillStyle = '#0000ff';
-    var x = engine.convertPosition(city.getPosX());
-    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY() + 64;
-    this.context.fillRect(x,y,20,20);
+    var x = engine.convertPosition(enemy.getPosX());
+    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY() + 128;
+    this.context.fillRect(x, y, 32, 32);
+
 }
 
 Display.prototype.draw = function(engine) {
     this.drawBackground();
-    this.drawPlanet(engine.getPlanet(),engine);
-    this.drawPlayer(engine.getPlayer(),engine);
-    for(var i = 0; i < engine.getEnemies().length;i++) {
-    	this.drawEnemy(engine.getEnemies()[i],engine);
+    this.drawPlanet(engine.getPlanet(), engine);
+    this.drawPlayer(engine.getPlayer(), engine);
+    for (var i = 0; i < engine.getEnemies().length; i++) {
+        this.drawEnemy(engine.getEnemies()[i], engine);
     }
-    for(var i = 0; i < engine.getCities().length;i++) {
-        this.drawCity(engine.getCities()[i],engine);
+    for (var i = 0; i < engine.getCities().length; i++) {
+        this.drawCity(engine.getCities()[i], engine);
     }
-}; 
+};
+
 
 Display.prototype.load = function() {
     this.imageBackground = new Image();
