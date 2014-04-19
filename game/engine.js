@@ -27,7 +27,7 @@ Engine.prototype.generateLevel = function(context) {
     // TEST - one enemy because fuck you, that's why
     this.spawnEnemies();
     // we generate the cities
-    // todo
+    this.spawnCities();
 
 };
 
@@ -36,14 +36,23 @@ Engine.prototype.spawnEnemies = function() {
     // each is espaced with 20px
     this.enemies = new Array();
     var height = 64 + 30; //
-    for (var i = 5;i > 0;i--) {
-        var number = Math.ceil(this.level*i*0.6);
-        for (var j = 0;j < number;j++) {
-            this.enemies[this.enemies.length] = new Enemy(Math.random()*Planet.width,height,false);
+    for (var i = 5; i > 0; i--) {
+        var number = Math.ceil(this.level * i * 0.6);
+        for (var j = 0; j < number; j++) {
+            this.enemies[this.enemies.length] = new Enemy(Math.random() * Planet.width, height, false);
         }
         height += 32 + 20;
     }
 
+}
+
+Engine.prototype.spawnCities = function() {
+    this.cities = new Array();
+    // there is as many cities as the level number
+    for (var i = 1; i <= this.level; i++) {
+        var x = Math.floor(Math.random() * Planet.width);
+        this.cities[i - 1] = new City(x, 20);
+    }
 }
 
 Engine.prototype.checkInputs = function(inputs) {
@@ -57,37 +66,37 @@ Engine.prototype.checkInputs = function(inputs) {
         this.player.move('none');
     }
 
-    
+
 };
 
 Engine.prototype.convertPosition = function(old_x) {
 
-    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x)/Planet.width)*Planet.width);
-     
+    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x) / Planet.width) * Planet.width);
+
     return x;
 };
 
 Engine.normaliseValue = function(old_x) {
 
-    var x =  old_x - (Math.floor(old_x/Planet.width)*Planet.width);
-     
+    var x = old_x - (Math.floor(old_x / Planet.width) * Planet.width);
+
     return x;
 }
 
 
 Engine.prototype.setOffset = function(newOffset) {
 
-	this.offset = Engine.normaliseValue(newOffset);
+    this.offset = Engine.normaliseValue(newOffset);
 
 };
 
 Engine.prototype.update = function() {
 
-	// we update the player position
+    // we update the player position
     this.player.updatePosition();
 
     // we update enemies position
-    for(var i = 0;i<this.enemies.length;i++) {
+    for (var i = 0; i < this.enemies.length; i++) {
         this.enemies[i].updatePosition();
     }
 
@@ -116,4 +125,8 @@ Engine.prototype.getOffset = function() {
 
 Engine.prototype.getEnemies = function() {
     return this.enemies;
+}
+
+Engine.prototype.getCities = function() {
+    return this.cities;
 }
