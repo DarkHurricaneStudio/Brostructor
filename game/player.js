@@ -55,3 +55,7 @@ Player.prototype.shoot = function() {
         this.lasers[0] = new Laser(this.posX, this.posY);
     }
 }
+
+Player.prototype.getLasers = function() {
+    return this.lasers;
+}
