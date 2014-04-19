@@ -9,16 +9,15 @@ Laser.prototype.posY = 0;
 Laser.prototype.SPEEDX = -5;
 
 // methods
-Player.prototype.update = function() {
-
+Laser.prototype.update = function() {
+    this.posX += this.SPEEDX;
 }
 
-
 //getters
-Player.prototype.getPosX = function() {
+Laser.prototype.getPosX = function() {
     return this.posX;
 }
 
-Player.prototype.getPosY = function() {
+Laser.prototype.getPosY = function() {
     return this.posY;
 }

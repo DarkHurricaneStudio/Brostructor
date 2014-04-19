@@ -6,7 +6,8 @@ Player.prototype.CONST_SPEED_X = 3;
 Player.prototype.speedX = 0;
 Player.prototype.posX = 512 / 2 - 32 / 2; // middle of the canvas - middle of the player
 Player.prototype.posY = 600; // because why not
-Player.prototype.laserRecovery = 10;
+Player.prototype.laserRecovery = 30;
+Player.prototype.lasers = new Array();
 
 
 // methods
@@ -51,6 +52,6 @@ Player.prototype.getPosY = function() {
 
 Player.prototype.shoot = function() {
     if (this.laserRecovery == 0) {
-
+        this.lasers[0] = new Laser(this.posX, this.posY);
     }
 }
