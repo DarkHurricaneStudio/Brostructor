@@ -36,10 +36,10 @@ Engine.prototype.spawnEnemies = function() {
     // each is espaced with 20px
     this.enemies = new Array();
     var height = 128 + 30; //
-    for (var i = 6;i > 0;i--) {
-        var number = this.level*i;
-        for (var j = 0;j < number;j++) {
-            this.enemies[this.enemies.length] = new Enemy(Math.random()*Planet.width,height,false);
+    for (var i = 6; i > 0; i--) {
+        var number = this.level * i;
+        for (var j = 0; j < number; j++) {
+            this.enemies[this.enemies.length] = new Enemy(Math.random() * Planet.width, height, false);
         }
         height += 32 + 20;
     }
@@ -53,42 +53,44 @@ Engine.prototype.checkInputs = function(inputs) {
         this.player.move('left');
     } else if (inputs[39] == true) { // right arrow
         this.player.move('right');
+    } else if (inputs[32] == true) { // space
+        this.player.shoot();
     } else {
         this.player.move('none');
     }
+}
 
-    
-};
+
 
 Engine.prototype.convertPosition = function(old_x) {
 
-    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x)/Planet.width)*Planet.width);
-     
+    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x) / Planet.width) * Planet.width);
+
     return x;
 };
 
 Engine.normaliseValue = function(old_x) {
 
-    var x =  old_x - (Math.floor(old_x/Planet.width)*Planet.width);
-     
+    var x = old_x - (Math.floor(old_x / Planet.width) * Planet.width);
+
     return x;
 }
 
 
 Engine.prototype.setOffset = function(newOffset) {
 
-	this.offset = Engine.normaliseValue(newOffset);
+    this.offset = Engine.normaliseValue(newOffset);
 
 };
 
 Engine.prototype.update = function() {
 
-	// we update the player position
-    this.player.updatePosition();
+    // we update the player position
+    this.player.update();
 
     // we update enemies position
-    for(var i = 0;i<this.enemies.length;i++) {
-        this.enemies[i].updatePosition();
+    for (var i = 0; i < this.enemies.length; i++) {
+        this.enemies[i].update();
     }
 
     // we update the camera speed
