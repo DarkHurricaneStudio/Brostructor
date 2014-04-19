@@ -42,6 +42,13 @@ Display.prototype.drawEnemy = function(enemy, engine) {
 	this.context.fillRect(x,y,32,32);
 }
 
+Display.prototype.drawCity = function(city,engine) {
+    this.context.fillStyle = '#0000ff';
+    var x = engine.convertPosition(enemy.getPosX());
+    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY() + 128;
+    this.context.fillRect(x,y,32,32);
+}
+
 Display.prototype.draw = function(engine) {
     this.drawBackground();
     this.drawPlanet(engine.getPlanet(),engine);

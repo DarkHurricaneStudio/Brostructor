@@ -14,7 +14,8 @@ Engine.prototype.enemies = new Array();
 Engine.prototype.cities = new Array();
 // @var player the player
 Engine.prototype.player = new Player();
-// @var cameraSpeed the speed of the camera
+// @var level the number of the level
+Engine.prototype.level = 1;
 
 // methods
 Engine.prototype.generateLevel = function(context) {
@@ -24,11 +25,26 @@ Engine.prototype.generateLevel = function(context) {
     // we generate the enemies
     // todo
     // TEST - one enemy because fuck you, that's why
-    this.enemies[0] = new Enemy(30,120);
+    this.spawnEnemies();
     // we generate the cities
     // todo
 
 };
+
+Engine.prototype.spawnEnemies = function() {
+    // we have  5 levels of height where the enemies can spawn
+    // each is espaced with 20px
+    this.enemies = new Array();
+    var height = 128 + 30; //
+    for (var i = 6;i > 0;i--) {
+        var number = this.level*i;
+        for (var j = 0;j < number;j++) {
+            this.enemies[this.enemies.length] = new Enemy(Math.random()*Planet.width,height,false);
+        }
+        height += 32 + 20;
+    }
+
+}
 
 Engine.prototype.checkInputs = function(inputs) {
 

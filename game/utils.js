@@ -172,7 +172,7 @@ Utils.imageDataPerlinNoise = function (width, length, maxHeight, stepX, stepY,pe
 				images[i].data[4*j+2] = 129;
 				images[i].data[4*j+3] = 255;
 
-			} else if (map[i][j] <= 34) { // not so deep sea
+			} else if (map[i][j] <= 36) { // not so deep sea
 
 				images[i].data[4*j+0] = 120;
 				images[i].data[4*j+1] = 120;
@@ -186,7 +186,7 @@ Utils.imageDataPerlinNoise = function (width, length, maxHeight, stepX, stepY,pe
 				images[i].data[4*j+2] = 163;
 				images[i].data[4*j+3] = 255;
 				
-			} else if (map[i][j] <= 40) { // golden sand
+			} else if (map[i][j] <= 40.5) { // golden sand
 
 				images[i].data[4*j+0] = 234;
 				images[i].data[4*j+1] = 206;
@@ -200,18 +200,32 @@ Utils.imageDataPerlinNoise = function (width, length, maxHeight, stepX, stepY,pe
 				images[i].data[4*j+2] = 14;
 				images[i].data[4*j+3] = 255;
 				
-			} else if (map[i][j] <= 60) { // hill
+			} else if (map[i][j] <= 55) { // hill
 
 				images[i].data[4*j+0] = 0;
 				images[i].data[4*j+1] = 123;
 				images[i].data[4*j+2] = 12;
 				images[i].data[4*j+3] = 255;
-				
-			} else if (map[i][j] <= 70) { // rock
 
-				images[i].data[4*j+0] = 220;
-				images[i].data[4*j+1] = 220;
-				images[i].data[4*j+2] = 220;
+			} else if (map[i][j] <= 62) { // river bank
+
+				images[i].data[4*j+0] = 0;
+				images[i].data[4*j+1] = 104;
+				images[i].data[4*j+2] = 10;
+				images[i].data[4*j+3] = 255;
+
+			} else if (map[i][j] <= 65) { // olive
+
+				images[i].data[4*j+0] = 109;
+				images[i].data[4*j+1] = 116;
+				images[i].data[4*j+2] = 67;
+				images[i].data[4*j+3] = 255;	
+
+			} else if (map[i][j] <= 70) { // vintage january
+
+				images[i].data[4*j+0] = 161;
+				images[i].data[4*j+1] = 162;
+				images[i].data[4*j+2] = 149;
 				images[i].data[4*j+3] = 255;
 				
 			} else { // eternal snow
