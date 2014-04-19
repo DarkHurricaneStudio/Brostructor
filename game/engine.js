@@ -47,19 +47,14 @@ Engine.prototype.checkInputs = function(inputs) {
 Engine.prototype.convertPosition = function(old_x) {
 
     var x = (this.offset + old_x) - (Math.floor((this.offset + old_x)/Planet.width)*Planet.width);
-     //if (x < 0) {
-     //   x = Planet.width - x;
-    //}
+     
     return x;
 };
 
 Engine.normaliseValue = function(old_x) {
-    var x = old_x;
-    if (old_x >= Planet.width) {
-        x = old_x - Planet.width;
-    } else if (-old_x >= Planet.width) {
-        x = old_x + Planet.width;
-    }
+
+    var x =  old_x - (Math.floor(old_x/Planet.width)*Planet.width);
+     
     return x;
 }
 

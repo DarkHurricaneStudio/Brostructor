@@ -17,9 +17,9 @@ Enemy.prototype.CONST_RELOADING_TIME = 4; // minimum time between each shooting 
 // methods
 Enemy.prototype.updatePosition = function() {
 
-	//this.posY = Engine.normaliseValue(this.posY+this.speedY);
-	//this.posX = Engine.normaliseValue(this.posX+this.speedX);
-	this.posX+=this.speedX;
+	this.posX = Engine.normaliseValue(this.posX+this.speedX);
+	/* non normalised version :
+    this.posX += this.speedX */
     this.posY+=this.speedY;
 }
 

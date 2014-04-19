@@ -22,10 +22,11 @@ Player.prototype.move = function(direction) {
 };
 
 Player.prototype.updatePosition = function() {
-	//this.posY = Engine.normaliseValue(this.posY+this.speedY);
-    //this.posX = Engine.normaliseValue(this.posX+this.speedX);
-    this.posX+=this.speedX;
+
+    this.posX = Engine.normaliseValue(this.posX+this.speedX);
     this.posY+=this.speedY;
+    /* non normalised version :
+    this.posX += this.speedX */
 	// we update Y speed because of gravity (gravity is a bitch)
 	this.speedY -= 0.0001;
 }
