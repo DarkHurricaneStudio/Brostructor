@@ -6,8 +6,6 @@ Player.prototype.CONST_SPEED_X = 3;
 Player.prototype.speedX = 0;
 Player.prototype.posX = 512 / 2 - 32 / 2; // middle of the canvas - middle of the player
 Player.prototype.posY = 600; // because why not
-Player.prototype.laserRecovery = 30;
-Player.prototype.lasers = new Array();
 
 
 // methods
@@ -29,14 +27,6 @@ Player.prototype.update = function() {
     this.posX += this.speedX */
     // we update Y speed because of gravity (gravity is a bitch)
     this.speedY -= 0.0001;
-
-    if (this.laserRecovery > 0) {
-        this.laserRecovery--;
-    }
-
-    for (var i = this.lasers.length - 1; i >= 0; i--) {
-        this.lasers[i].update();
-    };
 }
 
 
@@ -52,12 +42,6 @@ Player.prototype.getPosX = function() {
 
 Player.prototype.getPosY = function() {
     return this.posY;
-}
-
-Player.prototype.shoot = function() {
-    if (this.laserRecovery == 0) {
-        this.lasers[0] = new Laser(this.posX, this.posY);
-    }
 }
 
 Player.prototype.getLasers = function() {

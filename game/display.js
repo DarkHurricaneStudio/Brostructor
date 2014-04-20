@@ -31,17 +31,8 @@ Display.prototype.drawPlanet = function(planet, engine) {
 };
 
 Display.prototype.drawPlayer = function(player, engine) {
-    // Player
     this.context.fillStyle = '#ff0000';
     this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), 32, 32);
-
-    // Lasers
-    this.context.fillStyle = '#ffffff';
-    var lasers = player.getLasers();
-    for (var i = 0; i < lasers.length; i++) {
-        var las = lasers[i];
-        this.context.fillRect(engine.convertPosition(las.getPosX()), las.getPosY(), 5, 20);
-    };
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
@@ -60,6 +51,11 @@ Display.prototype.drawCity = function(city, engine) {
 
 }
 
+Display.prototype.drawLaser = function(laser, engine) {
+    this.context.fillStyle = '#ffffff';
+    this.context.fillRect(engine.convertPosition(laser.getPosX()), laser.getPosY(), 5, 20);
+}
+
 Display.prototype.draw = function(engine) {
     this.drawBackground();
     this.drawPlanet(engine.getPlanet(), engine);
@@ -70,6 +66,9 @@ Display.prototype.draw = function(engine) {
     for (var i = 0; i < engine.getCities().length; i++) {
         this.drawCity(engine.getCities()[i], engine);
     }
+    for (var i = engine.getLasers().length - 1; i >= 0; i--) {
+        this.drawLaser(engine.getLasers()[i], engine);
+    };
 };
 
 

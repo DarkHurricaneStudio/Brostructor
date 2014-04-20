@@ -17,6 +17,12 @@ Engine.prototype.player = new Player();
 // @var level the number of the level
 Engine.prototype.level = 1;
 
+
+Engine.prototype.laserCount = 0;
+Engine.prototype.LASERMAX = 5;
+Engine.prototype.laserRecovery = 0;
+Engine.prototype.RECOVERY = 40;
+Engine.prototype.lasers = new Array();
 // methods
 Engine.prototype.generateLevel = function(context) {
 
@@ -67,7 +73,7 @@ Engine.prototype.checkInputs = function(inputs) {
     }
 
     if (inputs[32] == true) { // space
-        this.player.shoot();
+        this.createLaser();
     }
 }
 
@@ -112,7 +118,29 @@ Engine.prototype.update = function() {
     if (this.cameraSpeed != 0) {
         this.setOffset(this.offset + this.cameraSpeed);
     }
+
+
+    // we update lasers
+    if (this.laserRecovery > 0) {
+        this.laserRecovery--;
+    }
+
+    for (var i = this.lasers.length - 1; i >= 0; i--) {
+        this.lasers[i].update();
+    }
 };
+
+Engine.prototype.createLaser = function() {
+    if (this.laserRecovery == 0) {
+        this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX(), this.getPlayer().getPosY());
+        if (this.laserCount == this.LASERAMX) {
+            this.laserCount = 0;
+        } else {
+            this.laserCount++;
+        }
+        this.laserRecovery = this.RECOVERY;
+    }
+}
 
 //getters
 Engine.prototype.getPlanet = function() {
@@ -133,4 +161,8 @@ Engine.prototype.getEnemies = function() {
 
 Engine.prototype.getCities = function() {
     return this.cities;
+}
+
+Engine.prototype.getLasers = function() {
+    return this.lasers;
 }

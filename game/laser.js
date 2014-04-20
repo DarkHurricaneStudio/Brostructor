@@ -1,7 +1,6 @@
 var Laser = function(pPosX, pPosY) {
     this.posX = pPosX;
     this.posY = pPosY;
-    console.log("BRO" + pPosX + pPosY);
 };
 
 // fields
