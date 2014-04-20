@@ -1,6 +1,6 @@
 // We create the class Planet
 var Planet = function() {
-	this.offset = 0;
+    this.offset = 0;
 };
 
 // attributes
@@ -15,14 +15,14 @@ Planet.width = 2048;
 // generate a planet (no shit Sherlock)
 // @param context the context from the canvas
 Planet.prototype.generate = function(context) {
-	// we define some constants
-	var width = Planet.width;
-	var length = 128;
-	var persistance = 0.5;
-	var nbOctaves = 4;
-	var pas = 64;
-	var max = 80;
-	this.map = Utils.imageDataPerlinNoise(width,length,max,pas,pas,persistance,nbOctaves,context);
+    // we define some constants
+    var width = Planet.width;
+    var length = 128;
+    var persistance = 0.5;
+    var nbOctaves = 4;
+    var pas = 64;
+    var max = 80;
+    this.map = Utils.imageDataPerlinNoise(width, length, max, pas, pas, persistance, nbOctaves, context);
 };
 
 
@@ -30,6 +30,5 @@ Planet.prototype.generate = function(context) {
 
 // getters
 Planet.prototype.getMap = function() {
-	return this.map;
+    return this.map;
 };
-

@@ -33,6 +33,10 @@ Player.prototype.update = function() {
     if (this.laserRecovery > 0) {
         this.laserRecovery--;
     }
+
+    for (var i = this.lasers.length - 1; i >= 0; i--) {
+        this.lasers[i].update();
+    };
 }
 
 

@@ -1,16 +1,17 @@
 var Laser = function(pPosX, pPosY) {
     this.posX = pPosX;
     this.posY = pPosY;
+    console.log("BRO" + pPosX + pPosY);
 };
 
 // fields
 Laser.prototype.posX = 0;
 Laser.prototype.posY = 0;
-Laser.prototype.SPEEDX = -5;
+Laser.prototype.SPEEDY = -3;
 
 // methods
 Laser.prototype.update = function() {
-    this.posX += this.SPEEDX;
+    this.posY += this.SPEEDY;
 }
 
 //getters

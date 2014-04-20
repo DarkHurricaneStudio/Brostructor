@@ -62,10 +62,12 @@ Engine.prototype.checkInputs = function(inputs) {
         this.player.move('left');
     } else if (inputs[39] == true) { // right arrow
         this.player.move('right');
-    } else if (inputs[32] == true) { // space
-        this.player.shoot();
     } else {
         this.player.move('none');
+    }
+
+    if (inputs[32] == true) { // space
+        this.player.shoot();
     }
 }
 
@@ -95,46 +97,39 @@ Engine.prototype.setOffset = function(newOffset) {
 Engine.prototype.update = function() {
 
     // we update the player position
-    << << << < HEAD
-    this.player.updatePosition();
+    this.player.update();
 
     // we update enemies position
     for (var i = 0; i < this.enemies.length; i++) {
-        this.enemies[i].updatePosition(); === === =
-            this.player.update();
-
-        // we update enemies position
-        for (var i = 0; i < this.enemies.length; i++) {
-            this.enemies[i].update(); >>> >>> > 6168146da2d7bc1491aa82351b8aeb763634df20
-        }
-
-        // we update the camera speed
-        //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
-        this.cameraSpeed = -this.player.getSpeedX();
-
-        // we update the offset position
-        if (this.cameraSpeed != 0) {
-            this.setOffset(this.offset + this.cameraSpeed);
-        }
-    };
-
-    //getters
-    Engine.prototype.getPlanet = function() {
-        return this.planet;
-    };
-
-    Engine.prototype.getPlayer = function() {
-        return this.player;
-    };
-
-    Engine.prototype.getOffset = function() {
-        return this.offset;
-    };
-
-    Engine.prototype.getEnemies = function() {
-        return this.enemies;
+        this.enemies[i].update();
     }
+    // we update the camera speed
+    //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
+    this.cameraSpeed = -this.player.getSpeedX();
 
-    Engine.prototype.getCities = function() {
-        return this.cities;
+    // we update the offset position
+    if (this.cameraSpeed != 0) {
+        this.setOffset(this.offset + this.cameraSpeed);
     }
+};
+
+//getters
+Engine.prototype.getPlanet = function() {
+    return this.planet;
+};
+
+Engine.prototype.getPlayer = function() {
+    return this.player;
+};
+
+Engine.prototype.getOffset = function() {
+    return this.offset;
+};
+
+Engine.prototype.getEnemies = function() {
+    return this.enemies;
+}
+
+Engine.prototype.getCities = function() {
+    return this.cities;
+}

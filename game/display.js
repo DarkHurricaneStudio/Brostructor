@@ -40,7 +40,7 @@ Display.prototype.drawPlayer = function(player, engine) {
     var lasers = player.getLasers();
     for (var i = 0; i < lasers.length; i++) {
         var las = lasers[i];
-        this.context.fillRect(las.getPosX, las.getPosY, 5, 20);
+        this.context.fillRect(engine.convertPosition(las.getPosX()), las.getPosY(), 5, 20);
     };
 }
 
@@ -54,7 +54,7 @@ Display.prototype.drawEnemy = function(enemy, engine) {
 
 Display.prototype.drawCity = function(city, engine) {
     this.context.fillStyle = '#0000ff';
-    var x = engine.convertPosition(enemy.getPosX());
+    var x = engine.convertPosition(city.getPosX());
     var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY() + 128;
     this.context.fillRect(x, y, 32, 32);
 
