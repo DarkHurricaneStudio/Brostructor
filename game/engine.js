@@ -35,13 +35,13 @@ Engine.prototype.spawnEnemies = function() {
     // we have  5 levels of height where the enemies can spawn
     // each is espaced with 20px
     this.enemies = new Array();
-    var height = 64 + 30; //
+    var height = 128 + 30; //
     for (var i = 5; i > 0; i--) {
         var number = Math.ceil(this.level * i * 0.6);
         for (var j = 0; j < number; j++) {
             this.enemies[this.enemies.length] = new Enemy(Math.random() * Planet.width, height, false);
         }
-        height += 32 + 20;
+        height += 32 + 25;
     }
 
 }
@@ -51,7 +51,7 @@ Engine.prototype.spawnCities = function() {
     // there is as many cities as the level number
     for (var i = 1; i <= this.level; i++) {
         var x = Math.floor(Math.random() * Planet.width);
-        this.cities[i - 1] = new City(x, 20);
+        this.cities[i - 1] = new City(x, 40);
     }
 }
 
@@ -95,46 +95,41 @@ Engine.prototype.setOffset = function(newOffset) {
 Engine.prototype.update = function() {
 
     // we update the player position
-    << << << < HEAD
-    this.player.updatePosition();
+
+    this.player.update();
 
     // we update enemies position
     for (var i = 0; i < this.enemies.length; i++) {
-        this.enemies[i].updatePosition(); === === =
-            this.player.update();
-
-        // we update enemies position
-        for (var i = 0; i < this.enemies.length; i++) {
-            this.enemies[i].update(); >>> >>> > 6168146da2d7bc1491aa82351b8aeb763634df20
-        }
-
-        // we update the camera speed
-        //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
-        this.cameraSpeed = -this.player.getSpeedX();
-
-        // we update the offset position
-        if (this.cameraSpeed != 0) {
-            this.setOffset(this.offset + this.cameraSpeed);
-        }
-    };
-
-    //getters
-    Engine.prototype.getPlanet = function() {
-        return this.planet;
-    };
-
-    Engine.prototype.getPlayer = function() {
-        return this.player;
-    };
-
-    Engine.prototype.getOffset = function() {
-        return this.offset;
-    };
-
-    Engine.prototype.getEnemies = function() {
-        return this.enemies;
+        this.enemies[i].update();
     }
 
-    Engine.prototype.getCities = function() {
-        return this.cities;
+    // we update the camera speed
+    //this.cameraSpeed = Math.round((this.cameraSpeed+this.player.getSpeed())/4);
+    this.cameraSpeed = -this.player.getSpeedX();
+
+    // we update the offset position
+    if (this.cameraSpeed != 0) {
+        this.setOffset(this.offset + this.cameraSpeed);
     }
+};
+
+//getters
+Engine.prototype.getPlanet = function() {
+    return this.planet;
+};
+
+Engine.prototype.getPlayer = function() {
+    return this.player;
+};
+
+Engine.prototype.getOffset = function() {
+    return this.offset;
+};
+
+Engine.prototype.getEnemies = function() {
+    return this.enemies;
+}
+
+Engine.prototype.getCities = function() {
+    return this.cities;
+}
