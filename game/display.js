@@ -47,7 +47,7 @@ Display.prototype.drawPlayer = function(player, engine) {
 Display.prototype.drawEnemy = function(enemy, engine) {
     this.context.fillStyle = '#00ff00';
     var x = engine.convertPosition(enemy.getPosX());
-    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY() + 128;
+    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY();
     this.context.fillRect(x, y, 32, 32);
 
 }
@@ -55,7 +55,7 @@ Display.prototype.drawEnemy = function(enemy, engine) {
 Display.prototype.drawCity = function(city, engine) {
     this.context.fillStyle = '#0000ff';
     var x = engine.convertPosition(city.getPosX());
-    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY() + 128;
+    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY();
     this.context.fillRect(x, y, 32, 32);
 
 }

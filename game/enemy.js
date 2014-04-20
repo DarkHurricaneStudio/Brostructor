@@ -18,20 +18,25 @@ Enemy.CONST_RELOADING_TIME = 4; // minimum time between each shooting (in s)
 
 // methods
 Enemy.prototype.update = function() {
+    this.updateAI();
+    this.updatePos();
+}
 
+Enemy.prototype.updatePos = function() {
     this.posX = Engine.normaliseValue(this.posX + this.speedX);
     /* non normalised version :
     this.posX += this.speedX */
     this.posY += this.speedY;
 }
 
+Enemy.prototype.updateAI = function() {
+
+}
+
 Enemy.prototype.setSpeed = function(speedX, speedY) {
     this.speedX = speedX;
     this.speedY = speedY;
 }
-
-
-
 
 // getters
 
