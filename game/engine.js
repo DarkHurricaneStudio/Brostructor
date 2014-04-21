@@ -128,6 +128,10 @@ Engine.prototype.update = function() {
     for (var i = this.lasers.length - 1; i >= 0; i--) {
         this.lasers[i].update();
     }
+
+
+    // We check the collisions
+    this.checkCollisions();
 };
 
 Engine.prototype.createLaser = function() {
@@ -140,6 +144,16 @@ Engine.prototype.createLaser = function() {
         }
         this.laserRecovery = this.RECOVERY;
     }
+}
+
+Engine.prototype.checkCollisions = function() {
+    for (var i = this.enemies.length - 1; i >= 0; i--) {
+        for (var j = this.lasers.length - 1; j >= 0; j--) {
+            if (this.enemies[i].getPosY() > this.lasers[j].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
+                console.log('bro');
+            }
+        };
+    };
 }
 
 //getters
