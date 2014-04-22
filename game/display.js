@@ -32,7 +32,7 @@ Display.prototype.drawPlanet = function(planet, engine) {
 
 Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
-    this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), 32, 32);
+    this.context.fillRect(player.getPosX(),(Utils.getPlanetCurvePosition(player.getPosX(),this.width,64)+player.getPosY()), 32, 32);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
@@ -53,7 +53,8 @@ Display.prototype.drawCity = function(city, engine) {
 
 Display.prototype.drawLaser = function(laser, engine) {
     this.context.fillStyle = '#ffffff';
-    this.context.fillRect(engine.convertPosition(laser.getPosX()), laser.getPosY(), 5, 20);
+    //this.context.fillRect(engine.convertPosition(laser.getPosX()), laser.getPosY(), 5, 20);
+    this.context.fillRect(laser.getPosX(),(Utils.getPlanetCurvePosition(laser.getPosX(),this.width,64)+laser.getPosY()), 5, 20);
 }
 
 Display.prototype.draw = function(engine) {
