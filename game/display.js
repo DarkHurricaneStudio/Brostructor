@@ -32,7 +32,7 @@ Display.prototype.drawPlanet = function(planet, engine) {
 
 Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
-    this.context.fillRect(this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), 32, 32);
+    this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), 32, 32);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
