@@ -54,7 +54,9 @@ Display.prototype.drawCity = function(city, engine) {
 Display.prototype.drawLaser = function(laser, engine) {
     this.context.fillStyle = '#ffffff';
     //this.context.fillRect(engine.convertPosition(laser.getPosX()), laser.getPosY(), 5, 20);
-    this.context.fillRect(laser.getPosX(),(Utils.getPlanetCurvePosition(laser.getPosX(),this.width,64)+laser.getPosY()), 5, 20);
+    var x = engine.convertPosition(laser.getPosX());
+    var y = Utils.getPlanetCurvePosition(x, this.width, 64) + laser.getPosY();
+    this.context.fillRect(x,y, 5, 20);
 }
 
 Display.prototype.draw = function(engine) {
