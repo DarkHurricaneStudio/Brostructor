@@ -126,7 +126,14 @@ Engine.prototype.update = function() {
     }
 
     for (var i = this.lasers.length - 1; i >= 0; i--) {
-        this.lasers[i].update();
+        if (this.lasers[i] != null) {
+            this.lasers[i].update();
+            // If the laser is off the screen, we delete it
+            if (this.lasers[i].getPosY() + 32 < 0) {
+                this.lasers[i] = null;
+                console.log("DETRUIT");
+            }
+        }
     }
 
 
@@ -148,11 +155,14 @@ Engine.prototype.createLaser = function() {
 
 Engine.prototype.checkCollisions = function() {
     for (var i = this.enemies.length - 1; i >= 0; i--) {
-        for (var j = this.lasers.length - 1; j >= 0; j--) {
-            if (this.lasers[j].getPosY() < this.enemies[i].getPosY() + 32 && this.lasers[j].getPosY() > this.enemies[i].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
-                console.log("Laser : " + this.lasers[j].getPosX() + ";" + this.lasers[j].getPosY() + "    Ennemi : " + this.enemies[i].getPosX() + ";" + this.enemies[i].getPosY());
-            }
-        };
+        if (this.enemies[i] != null) { // useless ?
+            for (var j = this.lasers.length - 1; j >= 0; j--) {
+                if (this.lasers[j] != null && this.lasers[j].getPosY() < this.enemies[i].getPosY() + 32 && this.lasers[j].getPosY() > this.enemies[i].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
+                    console.log("Laser : " + this.lasers[j].getPosX() + ";" + this.lasers[j].getPosY() + "    Ennemi : " + this.enemies[i].getPosX() + ";" + this.enemies[i].getPosY());
+                }
+
+            };
+        }
     };
 }
 
