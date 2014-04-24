@@ -149,8 +149,8 @@ Engine.prototype.createLaser = function() {
 Engine.prototype.checkCollisions = function() {
     for (var i = this.enemies.length - 1; i >= 0; i--) {
         for (var j = this.lasers.length - 1; j >= 0; j--) {
-            if (this.enemies[i].getPosY() > this.lasers[j].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
-                console.log('bro');
+            if (this.lasers[j].getPosY() < this.enemies[i].getPosY() + 32 && this.lasers[j].getPosY() > this.enemies[i].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
+                console.log("Laser : " + this.lasers[j].getPosX() + ";" + this.lasers[j].getPosY() + "    Ennemi : " + this.enemies[i].getPosX() + ";" + this.enemies[i].getPosY());
             }
         };
     };
