@@ -107,7 +107,9 @@ Engine.prototype.update = function() {
 
     // we update enemies position
     for (var i = 0; i < this.enemies.length; i++) {
-        this.enemies[i].update();
+        if (this.enemies[i] != null) {
+            this.enemies[i].update();
+        }
     }
 
     // we update the camera speed
@@ -159,6 +161,11 @@ Engine.prototype.checkCollisions = function() {
             for (var j = this.lasers.length - 1; j >= 0; j--) {
                 if (this.lasers[j] != null && this.lasers[j].getPosY() < this.enemies[i].getPosY() + 32 && this.lasers[j].getPosY() > this.enemies[i].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
                     console.log("Laser : " + this.lasers[j].getPosX() + ";" + this.lasers[j].getPosY() + "    Ennemi : " + this.enemies[i].getPosX() + ";" + this.enemies[i].getPosY());
+                    this.lasers[j] = null;
+                    this.enemies[i] = null;
+                    // TODO EXPLOSION
+
+                    break;
                 }
 
             };
