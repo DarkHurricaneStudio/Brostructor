@@ -24,7 +24,7 @@ Display.prototype.drawPlanet = function(planet, engine) {
 
     var map = planet.getMap();
     for (var i = 0; i < this.width; i++) {
-        var y = Utils.getPlanetCurvePosition(i, this.width, 64);
+        var y = Utils.getPlanetCurvePosition(i, this.width, PLANET_DEVIATION);
         var mapPos = engine.convertPosition(-i);
         this.context.putImageData(map[mapPos], i, y);
     }
@@ -32,15 +32,15 @@ Display.prototype.drawPlanet = function(planet, engine) {
 
 Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
-    this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), 32, 32);
+    this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), PLAYER_WIDTH, PLAYER_HEIGHT);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
     if (enemy != null) {
         this.context.fillStyle = '#00ff00';
         var x = engine.convertPosition(enemy.getPosX());
-        var y = Utils.getPlanetCurvePosition(x, this.width, 64) + enemy.getPosY();
-        this.context.fillRect(x, y, 32, 32);
+        var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + enemy.getPosY();
+        this.context.fillRect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
     }
 }
 
@@ -48,18 +48,18 @@ Display.prototype.drawCity = function(city, engine) {
     if (this.city != null) {
         this.context.fillStyle = '#0000ff';
         var x = engine.convertPosition(city.getPosX());
-        var y = Utils.getPlanetCurvePosition(x, this.width, 64) + city.getPosY();
-        this.context.fillRect(x, y, 32, 32);
+        var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + city.getPosY();
+        this.context.fillRect(x, y, CITY_WIDTH, CITY_HEIGHT);
     }
 }
 
 Display.prototype.drawLaser = function(laser, engine) {
     if (laser != null) {
-        this.context.fillStyle = '#ffffff';
+        this.context.fillStyle = laser.getColor();
         //this.context.fillRect(engine.convertPosition(laser.getPosX()), laser.getPosY(), 5, 20);
         var x = engine.convertPosition(laser.getPosX());
-        var y = Utils.getPlanetCurvePosition(x, this.width, 64) + laser.getPosY();
-        this.context.fillRect(x, y, 5, 20);
+        var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + laser.getPosY();
+        this.context.fillRect(x, y, LASER_WIDTH, LASER_HEIGHT);
     }
 }
 

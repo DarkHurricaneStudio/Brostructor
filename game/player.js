@@ -1,10 +1,10 @@
 var Player = function() {};
 
 // fields
-Player.prototype.speedY = -0.01;
+Player.prototype.speedY = PLAYER_START_SPEED_Y;
 Player.prototype.speedX = 0;
-Player.prototype.posX = 512 / 2 - 32 / 2; // middle of the canvas - middle of the player
-Player.prototype.posY = 550; // because why not
+Player.prototype.posX = PLAYER_START_X; // middle of the canvas - middle of the player
+Player.prototype.posY = PLAYER_START_Y; // because why not
 
 
 // methods
@@ -25,7 +25,7 @@ Player.prototype.update = function() {
     /* non normalised version :
     this.posX += this.speedX */
     // we update Y speed because of gravity (gravity is a bitch)
-    this.speedY -= 0.0001;
+    this.speedY -= PLAYER_Y_SPEED_INCRETION;
 }
 
 
