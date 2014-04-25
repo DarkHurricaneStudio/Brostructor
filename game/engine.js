@@ -19,9 +19,7 @@ Engine.prototype.level = 1;
 
 
 Engine.prototype.laserCount = 0;
-Engine.prototype.LASERMAX = 5;
 Engine.prototype.laserRecovery = 0;
-Engine.prototype.RECOVERY = 40;
 Engine.prototype.lasers = new Array();
 // methods
 Engine.prototype.generateLevel = function(context) {
@@ -41,13 +39,13 @@ Engine.prototype.spawnEnemies = function() {
     // we have  5 levels of height where the enemies can spawn
     // each is espaced with 20px
     this.enemies = new Array();
-    var height = 128 + 30; //
-    for (var i = 5; i > 0; i--) {
-        var number = Math.ceil(this.level * i * 0.6);
+    var height = SPAWN_ENEMY_HEIGHT;
+    for (var i = SPAWN_ENEMY_LAYERS_NUMBER; i > 0; i--) {
+        var number = Math.ceil(this.level * i * SPAWN_ENEMY_LAYER_PERSISTANCE);
         for (var j = 0; j < number; j++) {
             this.enemies[this.enemies.length] = new Enemy(Math.random() * Planet.width, height, false);
         }
-        height += 32 + 25;
+        height += SPAWN_ENEMY_LAYER_HEIGHT;
     }
 
 }
@@ -57,22 +55,22 @@ Engine.prototype.spawnCities = function() {
     // there is as many cities as the level number
     for (var i = 1; i <= this.level; i++) {
         var x = Math.floor(Math.random() * Planet.width);
-        this.cities[i - 1] = new City(x, 40);
+        this.cities[i - 1] = new City(x, CITY_POS_Y);
     }
 }
 
 Engine.prototype.checkInputs = function(inputs) {
 
     // we check the movements
-    if (inputs[37] == true) { // left arrow
+    if (inputs[KEY_LEFT] == true) { // left arrow
         this.player.move('left');
-    } else if (inputs[39] == true) { // right arrow
+    } else if (inputs[KEY_RIGHT] == true) { // right arrow
         this.player.move('right');
     } else {
         this.player.move('none');
     }
 
-    if (inputs[32] == true) { // space
+    if (inputs[KEY_SPACE] == true) { // space
         this.createLaser();
     }
 }
@@ -145,12 +143,12 @@ Engine.prototype.update = function() {
 Engine.prototype.createLaser = function() {
     if (this.laserRecovery == 0) {
         this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX(), this.getPlayer().getPosY());
-        if (this.laserCount == this.LASERAMX) {
+        if (this.laserCount == PLAYER_MAX_LASERS) {
             this.laserCount = 0;
         } else {
             this.laserCount++;
         }
-        this.laserRecovery = this.RECOVERY;
+        this.laserRecovery = PLAYER_LASER_RECOVERY;
     }
 }
 
