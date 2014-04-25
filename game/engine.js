@@ -131,13 +131,12 @@ Engine.prototype.update = function() {
         if (this.lasers[i] != null) {
             this.lasers[i].update();
             // If the laser is off the screen, we delete it
-            if (this.lasers[i].getPosY() + 32 < 0) {
+            if (this.lasers[i].getPosY() + LASER_HEIGHT < 0) {
                 this.lasers[i] = null;
                 console.log("DETRUIT");
             }
         }
     }
-
 
     // We check the collisions
     this.checkCollisions();
@@ -159,12 +158,10 @@ Engine.prototype.checkCollisions = function() {
     for (var i = this.enemies.length - 1; i >= 0; i--) {
         if (this.enemies[i] != null) { // useless ?
             for (var j = this.lasers.length - 1; j >= 0; j--) {
-                if (this.lasers[j] != null && this.lasers[j].getPosY() < this.enemies[i].getPosY() + 32 && this.lasers[j].getPosY() > this.enemies[i].getPosY() && this.enemies[i].getPosX() > this.lasers[j].getPosX() && this.enemies[i].getPosX() < this.lasers[j].getPosX() + 32) {
-                    console.log("Laser : " + this.lasers[j].getPosX() + ";" + this.lasers[j].getPosY() + "    Ennemi : " + this.enemies[i].getPosX() + ";" + this.enemies[i].getPosY());
+                if (this.lasers[j] != null && this.lasers[j].getPosY() < this.enemies[i].getPosY() + ENEMY_HEIGHT && this.lasers[j].getPosY() + LASER_HEIGHT > this.enemies[i].getPosY() && this.lasers[j].getPosX() + LASER_WIDTH > this.enemies[i].getPosX() && this.lasers[j].getPosX() < this.enemies[i].getPosX() + ENEMY_WIDTH) {
                     this.lasers[j] = null;
                     this.enemies[i] = null;
                     // TODO EXPLOSION
-
                     break;
                 }
 
