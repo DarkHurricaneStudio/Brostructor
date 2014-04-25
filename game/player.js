@@ -2,7 +2,6 @@ var Player = function() {};
 
 // fields
 Player.prototype.speedY = -0.01;
-Player.prototype.CONST_SPEED_X = 3;
 Player.prototype.speedX = 0;
 Player.prototype.posX = 512 / 2 - 32 / 2; // middle of the canvas - middle of the player
 Player.prototype.posY = 550; // because why not
@@ -11,9 +10,9 @@ Player.prototype.posY = 550; // because why not
 // methods
 Player.prototype.move = function(direction) {
     if (direction == 'right') {
-        this.speedX = this.CONST_SPEED_X;
+        this.speedX = PLAYER_SPEED_X;
     } else if (direction == 'left') {
-        this.speedX = -this.CONST_SPEED_X;
+        this.speedX = -PLAYER_SPEED_X;
     } else {
         this.speedX = 0;
     }
