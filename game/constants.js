@@ -1,0 +1,12 @@
+var PLAYER_WIDTH = 32;
+var PLAYER_HEIGHT = 32;
+var PLAYER_SPEED_X = 3;
+
+var LASER_WIDTH = 5;
+var LASER_HEIGHT = 20;
+
+var ENEMY_WIDTH = 32;
+var ENEMY_HEIGHT = 32;
+
+var CITY_WIDTH = 20;
+var CITY_HEIGHT = 20;
