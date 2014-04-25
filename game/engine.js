@@ -43,7 +43,7 @@ Engine.prototype.spawnEnemies = function() {
     for (var i = SPAWN_ENEMY_LAYERS_NUMBER; i > 0; i--) {
         var number = Math.ceil(this.level * i * SPAWN_ENEMY_LAYER_PERSISTANCE);
         for (var j = 0; j < number; j++) {
-            this.enemies[this.enemies.length] = new Enemy(Math.random() * Planet.width, height, false);
+            this.enemies[this.enemies.length] = new Enemy(Math.random() * PLANET_WIDTH, height, false);
         }
         height += SPAWN_ENEMY_LAYER_HEIGHT;
     }
@@ -54,7 +54,7 @@ Engine.prototype.spawnCities = function() {
     this.cities = new Array();
     // there is as many cities as the level number
     for (var i = 1; i <= this.level; i++) {
-        var x = Math.floor(Math.random() * Planet.width);
+        var x = Math.floor(Math.random() * PLANET_WIDTH);
         this.cities[i - 1] = new City(x, CITY_POS_Y);
     }
 }
@@ -79,14 +79,14 @@ Engine.prototype.checkInputs = function(inputs) {
 
 Engine.prototype.convertPosition = function(old_x) {
 
-    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x) / Planet.width) * Planet.width);
+    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x) / PLANET_WIDTH) * PLANET_WIDTH);
 
     return x;
 };
 
 Engine.normaliseValue = function(old_x) {
 
-    var x = old_x - (Math.floor(old_x / Planet.width) * Planet.width);
+    var x = old_x - (Math.floor(old_x / PLANET_WIDTH) * PLANET_WIDTH);
 
     return x;
 }

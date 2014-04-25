@@ -6,7 +6,6 @@ var City = function(posX, posY) {
 City.prototype.posX = 0;
 City.prototype.posY = 0;
 City.prototype.life = CITY_MAX_LIFE;
-City.CONS_RELOADING_TIME = 2; // minimum time between each shooting (in s)
 
 City.prototype.getHit = function() {
     if (this.life > 0)
