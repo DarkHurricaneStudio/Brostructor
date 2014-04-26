@@ -2,7 +2,7 @@ var elem = document.getElementById('jeu');
 var context = elem.getContext('2d');
 var display = new Display(elem);
 var engine = new Engine();
-engine.generateLevel(context);
+engine.generateLevel();
 
 window.addEventListener('load', function() {
 

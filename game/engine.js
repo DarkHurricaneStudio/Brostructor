@@ -22,10 +22,10 @@ Engine.prototype.laserCount = 0;
 Engine.prototype.laserRecovery = 0;
 Engine.prototype.lasers = new Array();
 // methods
-Engine.prototype.generateLevel = function(context) {
+Engine.prototype.generateLevel = function() {
 
     // we generate the planet
-    this.planet.generate(context);
+    this.planet.generate();
     // we generate the enemies
     // todo
     // TEST - one enemy because fuck you, that's why
