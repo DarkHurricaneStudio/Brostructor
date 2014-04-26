@@ -137,7 +137,8 @@ Engine.prototype.update = function() {
     }
 
     // We check the collisions
-    this.checkCollisions();
+    this.checkEnemyLaserCollisions();
+    this.checkPlayerEnemyCollisions();
 };
 
 Engine.prototype.createLaser = function() {
@@ -152,7 +153,7 @@ Engine.prototype.createLaser = function() {
     }
 }
 
-Engine.prototype.checkCollisions = function() {
+Engine.prototype.checkEnemyLaserCollisions = function() {
     for (var i = this.enemies.length - 1; i >= 0; i--) {
         if (this.enemies[i] != null) { // useless ?
             for (var j = this.lasers.length - 1; j >= 0; j--) {
@@ -166,6 +167,39 @@ Engine.prototype.checkCollisions = function() {
             };
         }
     };
+}
+
+Engine.prototype.checkPlayerEnemyCollisions = function() {
+
+    // we decide hat player and enemy are circle with a radius of 32/2 = 16
+    // if the distance between the center of the player and the center of the enemy is lower than 32 (16 +16), bim ! Else, not bim (for the moment :D)
+    var minimumRadius = PLAYER_WIDTH / 2 + ENEMY_WIDTH / 2;
+    var playerXCenter = this.player.getPosX() + PLAYER_WIDTH / 2;
+    var playerYCenter = this.player.getPosY() + PLAYER_HEIGHT / 2;
+
+    for (var i = 0; i < this.enemies.length; i++) {
+
+        if (this.enemies[i] != null) {
+            var enemyXCenter = this.enemies[i].getPosX() + ENEMY_WIDTH / 2;
+            var enemyYCenter = this.enemies[i].getPosY() + ENEMY_HEIGHT / 2;
+
+            if (Math.sqrt((playerXCenter - enemyXCenter) * (playerXCenter - enemyXCenter) + (playerYCenter - enemyYCenter) * (playerYCenter - enemyYCenter)) <= minimumRadius) {
+                // oups, we are dead !
+                this.endGame();
+                break;
+            }
+        }
+    }
+}
+
+Engine.prototype.endGame = function() {
+    alert("You are dead you irrevelant bitch !");;
+    // todo : end of the game
+}
+
+Engine.prototype.nextlevel = function() {
+    this.level++;
+    this.generateLevel();
 }
 
 //getters
