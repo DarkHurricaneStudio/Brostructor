@@ -34,6 +34,12 @@ Enemy.prototype.updateAI = function(engine) {
         this.speedY = Math.sqrt((this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY())) / Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX()) + (this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY()));
         this.speedX *= ENEMY_MAX_SPEED;
         this.speedY *= ENEMY_MAX_SPEED;
+        if (this.posX > engine.getPlayer().getPosX()) {
+            this.speedX = -this.speedX;
+        }
+        if (this.posY > engine.getPlayer().getPosY()) {
+            this.speedY = -this.speedY;
+        }
     }
 
 }

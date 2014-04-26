@@ -20,7 +20,7 @@ var LASER_HEIGHT = 20;
 
 var ENEMY_WIDTH = 32;
 var ENEMY_HEIGHT = 32;
-var ENEMY_KAMIKAZE_PERCENTAGE = 0.05; // 5% of enemies are kamikazes
+var ENEMY_KAMIKAZE_PERCENTAGE = 0.1; // 10% of enemies are kamikazes
 var ENEMY_MAX_SPEED = 2;
 
 var CITY_POS_Y = 40;
