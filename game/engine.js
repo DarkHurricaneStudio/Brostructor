@@ -132,13 +132,13 @@ Engine.prototype.update = function() {
             // If the laser is off the screen, we delete it
             if (this.lasers[i].getPosY() + LASER_HEIGHT < 0) {
                 this.lasers[i] = null;
-                console.log("DETRUIT");
             }
         }
     }
 
     // We check the collisions
     this.checkEnemyLaserCollisions();
+    this.checkCityLaserCollisions();
     this.checkPlayerEnemyCollisions();
 };
 
@@ -161,6 +161,22 @@ Engine.prototype.checkEnemyLaserCollisions = function() {
                 if (this.lasers[j] != null && this.lasers[j].getPosY() < this.enemies[i].getPosY() + ENEMY_HEIGHT && this.lasers[j].getPosY() + LASER_HEIGHT > this.enemies[i].getPosY() && this.lasers[j].getPosX() + LASER_WIDTH > this.enemies[i].getPosX() && this.lasers[j].getPosX() < this.enemies[i].getPosX() + ENEMY_WIDTH) {
                     this.lasers[j] = null;
                     this.enemies[i] = null;
+                    // TODO EXPLOSION
+                    break;
+                }
+
+            };
+        }
+    };
+}
+
+Engine.prototype.checkCityLaserCollisions = function() {
+    for (var i = this.cities.length - 1; i >= 0; i--) {
+        if (this.cities[i] != null) { // useless ?
+            for (var j = this.lasers.length - 1; j >= 0; j--) {
+                if (this.lasers[j] != null && this.lasers[j].getPosY() < this.cities[i].getPosY() + CITY_HEIGHT && this.lasers[j].getPosY() + LASER_HEIGHT > this.cities[i].getPosY() && this.lasers[j].getPosX() + LASER_WIDTH > this.cities[i].getPosX() && this.lasers[j].getPosX() < this.cities[i].getPosX() + CITY_WIDTH) {
+                    this.lasers[j] = null;
+                    this.cities[i] = null;
                     // TODO EXPLOSION
                     break;
                 }
