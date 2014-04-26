@@ -43,7 +43,8 @@ Engine.prototype.spawnEnemies = function() {
     for (var i = SPAWN_ENEMY_LAYERS_NUMBER; i > 0; i--) {
         var number = Math.ceil(this.level * i * SPAWN_ENEMY_LAYER_PERSISTANCE);
         for (var j = 0; j < number; j++) {
-            this.enemies[this.enemies.length] = new Enemy(Math.random() * PLANET_WIDTH, height, false);
+            var kamikaze = (Math.random() <= ENEMY_KAMIKAZE_PERCENTAGE);
+            this.enemies[this.enemies.length] = new Enemy(Math.random() * PLANET_WIDTH, height, kamikaze);
         }
         height += SPAWN_ENEMY_LAYER_HEIGHT;
     }
@@ -106,7 +107,7 @@ Engine.prototype.update = function() {
     // we update enemies position
     for (var i = 0; i < this.enemies.length; i++) {
         if (this.enemies[i] != null) {
-            this.enemies[i].update();
+            this.enemies[i].update(this);
         }
     }
 

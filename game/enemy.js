@@ -3,7 +3,7 @@ var Enemy = function(posX, posY, kamikaze) {
     this.posY = posY;
     this.kamikaze = kamikaze;
     // we had a random speed
-    this.speedX = Math.random() * Enemy.CONST_MAX_SPEED * 2 - Enemy.CONST_MAX_SPEED;
+    this.speedX = Math.random() * ENEMY_MAX_SPEED * 2 - ENEMY_MAX_SPEED;
 }
 
 // fields
@@ -12,13 +12,12 @@ Enemy.prototype.posY = 0;
 Enemy.prototype.speedX = 0;
 Enemy.prototype.speedY = 0;
 Enemy.prototype.kamikaze = false;
-Enemy.CONST_MAX_SPEED = 3;
 Enemy.CONST_RELOADING_TIME = 4; // minimum time between each shooting (in s)
 
 
 // methods
-Enemy.prototype.update = function() {
-    this.updateAI();
+Enemy.prototype.update = function(engine) {
+    this.updateAI(engine);
     this.updatePos();
 }
 
@@ -29,7 +28,13 @@ Enemy.prototype.updatePos = function() {
     this.posY += this.speedY;
 }
 
-Enemy.prototype.updateAI = function() {
+Enemy.prototype.updateAI = function(engine) {
+    if (this.kamikaze) {
+        this.speedX = Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX())) / Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX()) + (this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY()));
+        this.speedY = Math.sqrt((this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY())) / Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX()) + (this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY()));
+        this.speedX *= ENEMY_MAX_SPEED;
+        this.speedY *= ENEMY_MAX_SPEED;
+    }
 
 }
 
