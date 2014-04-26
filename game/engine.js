@@ -210,7 +210,8 @@ Engine.prototype.checkPlayerEnemyCollisions = function() {
 }
 
 Engine.prototype.endGame = function() {
-    alert("You are dead you irrevelant bitch !");;
+    alert("You are dead you irrevelant bitch !");
+    // TODO EXPLOSION
     // todo : end of the game
 }
 
