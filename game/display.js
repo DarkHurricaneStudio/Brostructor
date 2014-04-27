@@ -45,7 +45,7 @@ Display.prototype.drawEnemy = function(enemy, engine) {
 }
 
 Display.prototype.drawCity = function(city, engine) {
-    if (this.city != null) {
+    if (city != null) {
         this.context.fillStyle = '#0000ff';
         var x = engine.convertPosition(city.getPosX());
         var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + city.getPosY();

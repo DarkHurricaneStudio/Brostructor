@@ -3,9 +3,9 @@ var Laser = function(pPosX, pPosY, shotByPlayer) {
     this.posY = pPosY;
     // we define a totally random color
     this.color = "#";
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
+    var r = Math.floor(100 + Math.random() * 155);
+    var g = Math.floor(100 + Math.random() * 155);
+    var b = Math.floor(100 + Math.random() * 155);
     this.color += r + g + b;
 
     if (shotByPlayer) {
