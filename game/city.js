@@ -9,10 +9,10 @@ City.prototype.life = CITY_MAX_LIFE;
 
 City.prototype.getHit = function() {
     if (this.life > 0)
-        this.ife -= 1;
+        this.life -= 1;
 }
 
-City.isDead = function() {
+City.prototype.isDead = function() {
     return (this.life <= 0);
 }
 

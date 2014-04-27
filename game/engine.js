@@ -152,11 +152,12 @@ Engine.prototype.update = function() {
     this.checkEnemyLaserCollisions();
     this.checkCityLaserCollisions();
     this.checkPlayerEnemyCollisions();
+    this.checkPlayerLaserCollisions();
 };
 
 Engine.prototype.createLaser = function() {
     if (this.laserRecovery == 0) {
-        this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX(), this.getPlayer().getPosY(), true);
+        this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX() + PLAYER_WIDTH / 2, this.getPlayer().getPosY() + PLAYER_HEIGHT / 2, true);
         if (this.laserCount == PLAYER_MAX_LASERS) {
             this.laserCount = 0;
         } else {
@@ -192,7 +193,10 @@ Engine.prototype.checkCityLaserCollisions = function() {
             for (var j = this.lasers.length - 1; j >= 0; j--) {
                 if (this.lasers[j] != null && this.lasers[j].getPosY() < this.cities[i].getPosY() + CITY_HEIGHT && this.lasers[j].getPosY() + LASER_HEIGHT > this.cities[i].getPosY() && this.lasers[j].getPosX() + LASER_WIDTH > this.cities[i].getPosX() && this.lasers[j].getPosX() < this.cities[i].getPosX() + CITY_WIDTH) {
                     this.lasers[j] = null;
-                    this.cities[i] = null;
+                    this.cities[i].getHit();
+                    if (this.cities[i].isDead()) {
+                        this.cities[i] = null;
+                    }
                     // TODO EXPLOSION
                     break;
                 }
@@ -224,6 +228,17 @@ Engine.prototype.checkPlayerEnemyCollisions = function() {
         }
     }
 }
+
+Engine.prototype.checkPlayerLaserCollisions = function() {
+    for (var i = 0; i < this.enemiesLasers.length; i++) {
+        if (this.enemiesLasers[i] != null) {}
+        if (this.enemiesLasers[i].getPosY() + LASER_HEIGHT > this.player.getPosY() && this.enemiesLasers[i].getPosY() < this.player.getPosY() + PLAYER_HEIGHT && this.enemiesLasers[i].getPosX() + LASER_WIDTH > this.player.getPosX() && this.enemiesLasers[i].getPosX() < this.player.getPosX() + PLAYER_WIDTH) {
+            this.enemiesLasers[i] = null;
+            this.endGame();
+            break;
+        }
+    }
+};
 
 Engine.prototype.endGame = function() {
     alert("You are dead you irrevelant bitch !");
