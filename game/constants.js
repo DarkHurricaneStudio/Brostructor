@@ -17,11 +17,14 @@ var PLAYER_LASER_RECOVERY = 40;
 
 var LASER_WIDTH = 5;
 var LASER_HEIGHT = 20;
+var LASER_SPEED = 3;
 
 var ENEMY_WIDTH = 32;
 var ENEMY_HEIGHT = 32;
 var ENEMY_KAMIKAZE_PERCENTAGE = 0.1; // 10% of enemies are kamikazes
 var ENEMY_MAX_SPEED = 2;
+var ENEMY_LASER_RECOVERY = 80;
+
 
 var CITY_POS_Y = 40;
 var CITY_WIDTH = 20;

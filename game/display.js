@@ -76,6 +76,9 @@ Display.prototype.draw = function(engine) {
     for (var i = engine.getLasers().length - 1; i >= 0; i--) {
         this.drawLaser(engine.getLasers()[i], engine);
     };
+    for (var i = 0; i < engine.getEnemiesLasers().length; i++) {
+        this.drawLaser(engine.getEnemiesLasers()[i], engine);
+    }
 };
 
 

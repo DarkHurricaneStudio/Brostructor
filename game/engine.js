@@ -16,7 +16,8 @@ Engine.prototype.cities = new Array();
 Engine.prototype.player = new Player();
 // @var level the number of the level
 Engine.prototype.level = 1;
-
+//
+Engine.prototype.enemiesLasers = new Array();
 
 Engine.prototype.laserCount = 0;
 Engine.prototype.laserRecovery = 0;
@@ -136,6 +137,17 @@ Engine.prototype.update = function() {
         }
     }
 
+    for (var i = this.enemiesLasers.length - 1; i >= 0; i--) {
+        if (this.enemiesLasers[i] != null) {
+            this.enemiesLasers[i].update();
+            // If the laser is off the screen, we delete it
+            if (this.enemiesLasers[i].getPosY() + LASER_HEIGHT < 0) {
+                this.enemiesLasers[i] = null;
+            }
+        }
+    }
+
+
     // We check the collisions
     this.checkEnemyLaserCollisions();
     this.checkCityLaserCollisions();
@@ -144,7 +156,7 @@ Engine.prototype.update = function() {
 
 Engine.prototype.createLaser = function() {
     if (this.laserRecovery == 0) {
-        this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX(), this.getPlayer().getPosY());
+        this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX(), this.getPlayer().getPosY(), true);
         if (this.laserCount == PLAYER_MAX_LASERS) {
             this.laserCount = 0;
         } else {
@@ -152,6 +164,10 @@ Engine.prototype.createLaser = function() {
         }
         this.laserRecovery = PLAYER_LASER_RECOVERY;
     }
+}
+
+Engine.prototype.addEnemyLaser = function(posX, posY) {
+    this.enemiesLasers[this.enemiesLasers.length] = new Laser(posX, posY, false);
 }
 
 Engine.prototype.checkEnemyLaserCollisions = function() {
@@ -243,4 +259,8 @@ Engine.prototype.getCities = function() {
 
 Engine.prototype.getLasers = function() {
     return this.lasers;
+}
+
+Engine.prototype.getEnemiesLasers = function() {
+    return this.enemiesLasers;
 }

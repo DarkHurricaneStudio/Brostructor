@@ -12,7 +12,7 @@ Enemy.prototype.posY = 0;
 Enemy.prototype.speedX = 0;
 Enemy.prototype.speedY = 0;
 Enemy.prototype.kamikaze = false;
-Enemy.CONST_RELOADING_TIME = 4; // minimum time between each shooting (in s)
+Enemy.prototype.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
 
 
 // methods
@@ -41,6 +41,18 @@ Enemy.prototype.updateAI = function(engine) {
             this.speedY = -this.speedY;
         }
     }
+
+    // Now, it's time for us to shoot some invader !
+    // first way
+    // random shot, because we are not very good in defense (in attack either, in fact)
+    if (this.reloadTime <= 0) {
+        engine.addEnemyLaser(this.posX + ENEMY_WIDTH / 2, this.posY + ENEMY_HEIGHT / 2);
+
+        // we reload
+        this.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
+    }
+    this.reloadTime--;
+
 
 }
 
