@@ -11,6 +11,8 @@ var Laser = function(pPosX, pPosY, shotByPlayer) {
     if (shotByPlayer) {
         this.SPEEDY = -this.SPEEDY;
     }
+
+    audioManager.laserSound.play();
 };
 
 // fields

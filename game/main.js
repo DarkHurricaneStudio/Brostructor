@@ -3,6 +3,7 @@ var context = elem.getContext('2d');
 var display = new Display(elem);
 var engine = new Engine();
 engine.generateLevel();
+var audioManager = new AudioManager();
 
 window.addEventListener('load', function() {
 
@@ -19,9 +20,11 @@ window.addEventListener('load', function() {
 
     // Initialisation
     display.load();
+    audioManager.load();
+    audioManager.backgroundMusic.play();
 
     // Main loop at 80FPS
-    setInterval(mainLoop, 10);
+    setInterval(mainLoop, 12.5);
 }, false);
 
 
