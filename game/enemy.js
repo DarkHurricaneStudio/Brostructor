@@ -32,27 +32,26 @@ Enemy.prototype.updateAI = function(engine) {
     if (this.kamikaze) {
         this.speedX = Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX())) / Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX()) + (this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY()));
         this.speedY = Math.sqrt((this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY())) / Math.sqrt((this.posX - engine.getPlayer().getPosX()) * (this.posX - engine.getPlayer().getPosX()) + (this.posY - engine.getPlayer().getPosY()) * (this.posY - engine.getPlayer().getPosY()));
-        this.speedX *= ENEMY_MAX_SPEED;
-        this.speedY *= ENEMY_MAX_SPEED;
+        this.speedX *= ENEMY_KAMIKAZE_MAX_SPEED;
+        this.speedY *= ENEMY_KAMIKAZE_MAX_SPEED;
         if (this.posX > engine.getPlayer().getPosX()) {
             this.speedX = -this.speedX;
         }
         if (this.posY > engine.getPlayer().getPosY()) {
             this.speedY = -this.speedY;
         }
+    } else {
+        // Now, it's time for us to shoot some invader !
+        // first way
+        // random shot, because we are not very good in defense (in attack either, in fact)
+        if (this.reloadTime <= 0) {
+            engine.addEnemyLaser(this.posX + ENEMY_WIDTH / 2, this.posY + ENEMY_HEIGHT / 2);
+
+            // we reload
+            this.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
+        }
+        this.reloadTime--;
     }
-
-    // Now, it's time for us to shoot some invader !
-    // first way
-    // random shot, because we are not very good in defense (in attack either, in fact)
-    if (this.reloadTime <= 0) {
-        engine.addEnemyLaser(this.posX + ENEMY_WIDTH / 2, this.posY + ENEMY_HEIGHT / 2);
-
-        // we reload
-        this.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
-    }
-    this.reloadTime--;
-
 
 }
 
