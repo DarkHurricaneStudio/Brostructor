@@ -24,10 +24,13 @@ Display.prototype.drawBackground = function() {
 Display.prototype.drawPlanet = function(planet, engine) {
 
     var map = planet.getMap();
+
     for (var i = 0; i < this.width; i++) {
+
         var y = Utils.getPlanetCurvePosition(i, this.width, PLANET_DEVIATION);
         var mapPos = engine.convertPosition(-i);
         this.context.drawImage(map, mapPos, 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
+
     }
 };
 

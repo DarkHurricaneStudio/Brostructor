@@ -13,6 +13,7 @@ var Laser = function(pPosX, pPosY, shotByPlayer) {
     }
 
     audioManager.laserSound.play();
+
 };
 
 // fields

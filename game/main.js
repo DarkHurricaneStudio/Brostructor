@@ -4,6 +4,7 @@ var display = new Display(elem);
 var engine = new Engine();
 engine.generateLevel();
 var audioManager = new AudioManager();
+var pause = false;
 
 window.addEventListener('load', function() {
 
@@ -22,7 +23,6 @@ window.addEventListener('load', function() {
     display.load();
     audioManager.load();
     audioManager.backgroundMusic.play();
-
     // Main loop at 80FPS
     setInterval(mainLoop, 12.5);
 }, false);
@@ -32,6 +32,7 @@ function gameUpdate() {
     // Bro
     engine.checkInputs(keys);
     engine.update();
+
 }
 
 function refreshGame() {
@@ -40,9 +41,12 @@ function refreshGame() {
 
     // we draw
     display.draw(engine);
+
 }
 
 function mainLoop() {
-    gameUpdate();
-    refreshGame();
+    if (!pause) {
+        gameUpdate();
+        refreshGame();
+    }
 }

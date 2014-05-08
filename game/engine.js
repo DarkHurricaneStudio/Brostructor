@@ -80,6 +80,9 @@ Engine.prototype.checkInputs = function(inputs) {
     if (inputs[KEY_SPACE] == true) { // space
         this.createLaser();
     }
+    if (inputs[KEY_ESCAPE] == true) { // escape
+        pause = !pause;
+    }
 }
 
 
