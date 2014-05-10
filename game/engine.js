@@ -109,14 +109,6 @@ Engine.prototype.setOffset = function(newOffset) {
 };
 
 Engine.prototype.update = function() {
-    this.fpsCount++;
-    var currentDate = new Date().getTime();
-    if (currentDate - this.initDate >= 3000) {
-        console.log(this.fpsCount / 3)
-        this.initDate = currentDate;
-        this.fpsCount = 0;
-    }
-
     // we update the player position
     this.player.update();
 
