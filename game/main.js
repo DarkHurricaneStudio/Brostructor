@@ -40,6 +40,8 @@ function gameUpdate() {
 
 
 function refreshGame() {
+    requestAnimationFrame(refreshGame);
+
     fpsCount++;
     var currentDate = window.performance.now();
     if (currentDate - initDate >= 3000) {
@@ -53,9 +55,6 @@ function refreshGame() {
 
     // we draw
     display.draw(engine);
-
-    requestAnimationFrame(refreshGame);
-
 }
 
 function mainLoop() {
