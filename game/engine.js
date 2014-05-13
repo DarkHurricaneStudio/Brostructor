@@ -19,10 +19,15 @@ Engine.prototype.level = 1;
 //
 Engine.prototype.enemiesLasers = new Array();
 
+// Lasers
 Engine.prototype.laserCount = 0;
 Engine.prototype.laserRecovery = 0;
 Engine.prototype.lasers = new Array();
 
+// points
+Engine.prototype.points = 0;
+
+//fps counter
 Engine.prototype.initDate = new Date().getTime();
 Engine.prototype.fpsCount = 0;
 
@@ -184,6 +189,13 @@ Engine.prototype.checkEnemyLaserCollisions = function() {
             for (var j = this.lasers.length - 1; j >= 0; j--) {
                 if (this.lasers[j] != null && this.lasers[j].getPosY() < this.enemies[i].getPosY() + ENEMY_HEIGHT && this.lasers[j].getPosY() + LASER_HEIGHT > this.enemies[i].getPosY() && this.lasers[j].getPosX() + LASER_WIDTH > this.enemies[i].getPosX() && this.lasers[j].getPosX() < this.enemies[i].getPosX() + ENEMY_WIDTH) {
                     this.lasers[j] = null;
+
+                    if (this.enemies[i].isKamikaze()) {
+                        this.points += POINTS_KAMIKAZE;
+                    } else {
+                        this.points += POINTS_ENEMY;
+                    }
+
                     this.enemies[i] = null;
                     // TODO EXPLOSION
                     break;
@@ -202,6 +214,7 @@ Engine.prototype.checkCityLaserCollisions = function() {
                     this.lasers[j] = null;
                     this.cities[i].getHit();
                     if (this.cities[i].isDead()) {
+                        this.points += POINTS_CITY;
                         this.cities[i] = null;
                     }
                     // TODO EXPLOSION
@@ -248,7 +261,7 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
 };
 
 Engine.prototype.endGame = function() {
-    alert("You are dead you irrevelant bitch !");
+    console.log("You are dead you irrevelant bitch !");
     // TODO EXPLOSION
     // todo : end of the game
 }
@@ -285,4 +298,8 @@ Engine.prototype.getLasers = function() {
 
 Engine.prototype.getEnemiesLasers = function() {
     return this.enemiesLasers;
+}
+
+Engine.prototype.getPoints = function() {
+    return this.points;
 }

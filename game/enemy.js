@@ -69,3 +69,7 @@ Enemy.prototype.getPosX = function() {
 Enemy.prototype.getPosY = function() {
     return this.posY;
 }
+
+Enemy.prototype.isKamikaze = function() {
+    return this.kamikaze;
+}

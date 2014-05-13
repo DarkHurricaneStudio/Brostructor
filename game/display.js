@@ -67,8 +67,12 @@ Display.prototype.drawLaser = function(laser, engine) {
     }
 }
 
-Display.prototype.drawHUD = function() {
+Display.prototype.drawHUD = function(engine) {
     this.context.drawImage(this.HUD, 0, 0);
+
+    this.context.font = "20px Arial";
+    this.context.fillStyle = "#FFFFFF";
+    this.context.fillText("Points : " + engine.getPoints(), 10, 645);
 }
 
 Display.prototype.draw = function(engine) {
@@ -87,7 +91,7 @@ Display.prototype.draw = function(engine) {
     for (var i = 0; i < engine.getEnemiesLasers().length; i++) {
         this.drawLaser(engine.getEnemiesLasers()[i], engine);
     }
-    this.drawHUD();
+    this.drawHUD(engine);
 };
 
 
