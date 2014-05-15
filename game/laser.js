@@ -3,11 +3,34 @@ var Laser = function(pPosX, pPosY, shotByPlayer) {
     this.posY = pPosY;
     // we define a totally random color
     this.color = "#";
-    var r = Math.floor(205 + Math.random() * 50);
-    var g = Math.floor(205 + Math.random() * 50);
-    var b = Math.floor(205 + Math.random() * 50);
-    this.color += r + g + b;
+    var r, g, b;
 
+    switch (NB_LASERS % 3) {
+        case 0:
+            r = Math.floor(255).toString(16);
+            g = Math.floor(55 + Math.random() * 200).toString(16);
+            b = Math.floor(55 + Math.random() * 200).toString(16);
+            break;
+        case 1:
+            r = Math.floor(55 + Math.random() * 200).toString(16);
+            g = Math.floor(255).toString(16);
+            b = Math.floor(55 + Math.random() * 200).toString(16);
+            break;
+        case 2:
+            r = Math.floor(55 + Math.random() * 200).toString(16);
+            g = Math.floor(55 + Math.random() * 200).toString(16);
+            b = Math.floor(255).toString(16);
+            break;
+        default:
+            console.log("Erreur");
+            r = Math.floor(55 + Math.random() * 200).toString(16);
+            g = Math.floor(55 + Math.random() * 200).toString(16);
+            b = Math.floor(55 + Math.random() * 200).toString(16);
+    }
+
+    NB_LASERS++;
+    this.color += r + g + b;
+    console.log(this.color);
     if (shotByPlayer) {
         this.SPEEDY = -this.SPEEDY;
     }
@@ -21,6 +44,8 @@ Laser.prototype.posX = 0;
 Laser.prototype.posY = 0;
 Laser.prototype.color = "";
 Laser.prototype.SPEEDY = LASER_SPEED;
+
+var NB_LASERS = 1;
 
 // methods
 Laser.prototype.update = function() {
