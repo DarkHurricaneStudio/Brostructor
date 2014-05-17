@@ -7,10 +7,18 @@
 
 	<body>
 		<h1> Test </h1>
-		<canvas id="jeu" width="480" height="666">
-			Le navigateur ne supporte pas les canvas. Diantre.
-		</canvas>
-		<canvas id="planet_canvas" width="2048" height="128" style="display:none"></canvas>
+		
+		<div id="canvasContainer">
+			<!-- game canvas -->
+			<canvas id="jeu" width="480" height="666">
+				Le navigateur ne supporte pas les canvas. Diantre.
+			</canvas>
+			<!-- background and planet canvas -->
+			<canvas id="background" width="480" height="666">
+			</canvas>
+		</div>
+		<!-- this canvas is used to generate the planet -->
+		<canvas id="planet_canvas" width="2048" height="128"></canvas>
 
 
 		<!-- We load all the scripts -->

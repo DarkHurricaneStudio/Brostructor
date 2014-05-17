@@ -1,12 +1,15 @@
-var Display = function(canvas) {
+var Display = function(canvas, backCanvas) {
 
     this.context = canvas.getContext('2d');
     this.height = canvas.height;
     this.width = canvas.width;
+    this.backContext = backCanvas.getContext('2d');
+
 };
 
 //attributes
 Display.prototype.context;
+Display.prototype.backContext;
 Display.prototype.width;
 Display.prototype.height;
 
@@ -18,7 +21,7 @@ Display.prototype.HUD;
 
 
 Display.prototype.drawBackground = function() {
-    this.context.drawImage(this.imageBackground, 0, 0);
+    this.backContext.drawImage(this.imageBackground, 0, 0);
 }
 
 Display.prototype.drawPlanet = function(planet, engine) {
@@ -29,7 +32,7 @@ Display.prototype.drawPlanet = function(planet, engine) {
 
         var y = Utils.getPlanetCurvePosition(i, this.width, PLANET_DEVIATION);
         var mapPos = engine.convertPosition(-i);
-        this.context.drawImage(map, mapPos, 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
+        this.backContext.drawImage(map, mapPos, 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
 
     }
 };
@@ -72,8 +75,10 @@ Display.prototype.drawHUD = function() {
 }
 
 Display.prototype.draw = function(engine) {
-    this.drawBackground();
-    this.drawPlanet(engine.getPlanet(), engine);
+    // we only draw the planet if there is a movement
+    if (engine.cameraSpeed != 0 || engine.getOffset() == 0) {
+        this.drawPlanet(engine.getPlanet(), engine);
+    }
     this.drawPlayer(engine.getPlayer(), engine);
     for (var i = 0; i < engine.getEnemies().length; i++) {
         this.drawEnemy(engine.getEnemies()[i], engine);
@@ -96,4 +101,9 @@ Display.prototype.load = function() {
     this.imageBackground.src = "images/background.png";
     this.HUD = new Image();
     this.HUD.src = "images/HUD.png";
+    // once the background is loaded, we display it and the planet
+    this.imageBackground.onload = function() {
+        display.drawBackground();
+        display.drawPlanet(planet, engine);
+    }
 }

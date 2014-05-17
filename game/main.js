@@ -1,6 +1,7 @@
-var elem = document.getElementById('jeu');
-var context = elem.getContext('2d');
-var display = new Display(elem);
+var gameCanvas = document.getElementById('jeu');
+var backCanvas = document.getElementById('background');
+var context = gameCanvas.getContext('2d');
+var display = new Display(gameCanvas, backCanvas);
 var engine = new Engine();
 engine.generateLevel();
 var audioManager = new AudioManager();
@@ -12,7 +13,7 @@ window.addEventListener('load', function() {
 
 
     // If we don't get the canvacs, stop
-    if (!elem || !elem.getContext) {
+    if (!gameCanvas || !gameCanvas.getContext) {
         return;
     }
 
@@ -49,7 +50,7 @@ function refreshGame() {
     }
 
     // Clear the canvas
-    context.clearRect(0, 0, elem.width, elem.height);
+    context.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
 
     // we draw
     display.draw(engine);
