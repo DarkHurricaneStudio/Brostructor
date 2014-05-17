@@ -115,6 +115,5 @@ Display.prototype.load = function() {
     // once the background is loaded, we display it and the planet
     this.imageBackground.onload = function() {
         display.drawBackground();
-        display.drawPlanet(planet, engine);
     }
 }
