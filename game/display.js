@@ -25,16 +25,21 @@ Display.prototype.drawBackground = function() {
 }
 
 Display.prototype.drawPlanet = function(planet, engine) {
-
+    /*
     var map = planet.getMap();
 
     for (var i = 0; i < this.width; i++) {
-
         var y = Utils.getPlanetCurvePosition(i, this.width, PLANET_DEVIATION);
         var mapPos = engine.convertPosition(-i);
         this.backContext.drawImage(map, mapPos, 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
 
     }
+    */
+    if (planet.getRender(PLANET_WIDTH - 1 - engine.getOffset()) == null) {
+        planet.render(PLANET_WIDTH - 1 - engine.getOffset());
+    }
+
+    this.backContext.drawImage(planet.getRender(PLANET_WIDTH - 1 - engine.getOffset()), 0, 0);
 };
 
 Display.prototype.drawPlayer = function(player, engine) {
@@ -70,11 +75,16 @@ Display.prototype.drawLaser = function(laser, engine) {
     }
 }
 
-Display.prototype.drawHUD = function() {
+Display.prototype.drawHUD = function(engine) {
     this.context.drawImage(this.HUD, 0, 0);
+
+    this.context.font = "20px Arial";
+    this.context.fillStyle = "#FFFFFF";
+    this.context.fillText("Points : " + engine.getPoints(), 10, 645);
 }
 
 Display.prototype.draw = function(engine) {
+
     // we only draw the planet if there is a movement
     if (engine.cameraSpeed != 0 || engine.getOffset() == 0) {
         this.drawPlanet(engine.getPlanet(), engine);
@@ -92,7 +102,8 @@ Display.prototype.draw = function(engine) {
     for (var i = 0; i < engine.getEnemiesLasers().length; i++) {
         this.drawLaser(engine.getEnemiesLasers()[i], engine);
     }
-    this.drawHUD();
+    this.drawHUD(engine);
+
 };
 
 
