@@ -174,9 +174,13 @@ Engine.prototype.update = function() {
     this.checkPlayerEnemyCollisions();
     this.checkPlayerLaserCollisions();
 
+    if (this.loadingLevel) {
+        this.generateLevel();
+    }
+
     if (this.player.getPosY() <= PLAYER_Y_NEXT_LEVEL) {
         this.points += POINTS_PLANET;
-        this.generateLevel();
+        this.loadingLevel = true;
     }
 };
 

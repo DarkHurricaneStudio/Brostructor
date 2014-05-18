@@ -83,6 +83,12 @@ Display.prototype.drawHUD = function(engine) {
     this.context.fillText("Points : " + engine.getPoints(), 10, 645);
 }
 
+Display.prototype.drawLoadingScreen = function() {
+    this.context.font = "30px Arial";
+    this.context.fillStyle = "#FFFFFF";
+    this.context.fillText("Loading...", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+}
+
 Display.prototype.draw = function(engine) {
 
     if (!engine.isLoadingLevel()) {
@@ -104,6 +110,8 @@ Display.prototype.draw = function(engine) {
             this.drawLaser(engine.getEnemiesLasers()[i], engine);
         }
         this.drawHUD(engine);
+    } else {
+        this.drawLoadingScreen();
     }
 };
 
