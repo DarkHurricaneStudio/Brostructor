@@ -20,6 +20,7 @@ Planet.prototype.renders;
 Planet.prototype.generate = function() {
     // we draw in the canvas
     Utils.imageDataPerlinNoise(PLANET_WIDTH, PLANET_HEIGHT, PLANET_MAX_HEIGHT, PLANET_STEP, PLANET_STEP, PLANET_PERSISTANCE, PLANET_OCTAVES_NUMBER, this.map.getContext("2d"));
+    this.renders = new Array(PLANET_WIDTH);
 
 };
 

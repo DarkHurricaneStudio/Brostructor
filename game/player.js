@@ -28,6 +28,11 @@ Player.prototype.update = function() {
     this.speedY -= PLAYER_Y_SPEED_INCRETION;
 }
 
+Player.prototype.resetToStart = function() {
+    this.posX = PLAYER_START_X;
+    this.posY = PLAYER_START_Y;
+    this.speedY = PLAYER_START_SPEED_Y;
+}
 
 //getters
 Player.prototype.getSpeedX = function() {

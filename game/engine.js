@@ -15,9 +15,11 @@ Engine.prototype.cities = new Array();
 // @var player the player
 Engine.prototype.player = new Player();
 // @var level the number of the level
-Engine.prototype.level = 1;
+Engine.prototype.level = 0;
 //
 Engine.prototype.enemiesLasers = new Array();
+// @var loadingLevel true if the level is generating, false if not
+Engine.prototype.loadingLevel = true;
 
 // Lasers
 Engine.prototype.laserCount = 0;
@@ -34,7 +36,8 @@ Engine.prototype.fpsCount = 0;
 
 // methods
 Engine.prototype.generateLevel = function() {
-
+    this.loadingLevel = true;
+    this.level++;
     // we generate the planet
     this.planet.generate();
     // we generate the enemies
@@ -43,6 +46,11 @@ Engine.prototype.generateLevel = function() {
     this.spawnEnemies();
     // we generate the cities
     this.spawnCities();
+    this.player.resetToStart();
+    this.offset = 0;
+    this.lasers = new Array();
+    this.enemiesLasers = new Array();
+    this.loadingLevel = false;
 
 };
 
@@ -165,6 +173,11 @@ Engine.prototype.update = function() {
     this.checkCityLaserCollisions();
     this.checkPlayerEnemyCollisions();
     this.checkPlayerLaserCollisions();
+
+    if (this.player.getPosY() <= PLAYER_Y_NEXT_LEVEL) {
+        this.points += POINTS_PLANET;
+        this.generateLevel();
+    }
 };
 
 Engine.prototype.createLaser = function() {
@@ -303,4 +316,8 @@ Engine.prototype.getEnemiesLasers = function() {
 
 Engine.prototype.getPoints = function() {
     return this.points;
+}
+
+Engine.prototype.isLoadingLevel = function() {
+    return this.loadingLevel;
 }

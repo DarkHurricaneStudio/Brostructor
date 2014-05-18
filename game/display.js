@@ -85,25 +85,26 @@ Display.prototype.drawHUD = function(engine) {
 
 Display.prototype.draw = function(engine) {
 
-    // we only draw the planet if there is a movement
-    if (engine.cameraSpeed != 0 || engine.getOffset() == 0) {
-        this.drawPlanet(engine.getPlanet(), engine);
+    if (!engine.isLoadingLevel()) {
+        // we only draw the planet if there is a movement
+        if (engine.cameraSpeed != 0 || engine.getOffset() == 0) {
+            this.drawPlanet(engine.getPlanet(), engine);
+        }
+        this.drawPlayer(engine.getPlayer(), engine);
+        for (var i = 0; i < engine.getEnemies().length; i++) {
+            this.drawEnemy(engine.getEnemies()[i], engine);
+        }
+        for (var i = 0; i < engine.getCities().length; i++) {
+            this.drawCity(engine.getCities()[i], engine);
+        }
+        for (var i = engine.getLasers().length - 1; i >= 0; i--) {
+            this.drawLaser(engine.getLasers()[i], engine);
+        };
+        for (var i = 0; i < engine.getEnemiesLasers().length; i++) {
+            this.drawLaser(engine.getEnemiesLasers()[i], engine);
+        }
+        this.drawHUD(engine);
     }
-    this.drawPlayer(engine.getPlayer(), engine);
-    for (var i = 0; i < engine.getEnemies().length; i++) {
-        this.drawEnemy(engine.getEnemies()[i], engine);
-    }
-    for (var i = 0; i < engine.getCities().length; i++) {
-        this.drawCity(engine.getCities()[i], engine);
-    }
-    for (var i = engine.getLasers().length - 1; i >= 0; i--) {
-        this.drawLaser(engine.getLasers()[i], engine);
-    };
-    for (var i = 0; i < engine.getEnemiesLasers().length; i++) {
-        this.drawLaser(engine.getEnemiesLasers()[i], engine);
-    }
-    this.drawHUD(engine);
-
 };
 
 
