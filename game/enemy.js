@@ -39,7 +39,7 @@ Enemy.prototype.updateAI = function(engine) {
         this.speedY *= ENEMY_KAMIKAZE_MAX_SPEED;
         // we check if the enemy has to go to the right or the left
         if (this.posX > engine.getPlayer().getPosX()) {
-            if (Math.abs(this.posX-engine.getPlayer().getPosX()) > 1024) {
+            if (Math.abs(this.posX-engine.getPlayer().getPosX()) < 1024) {
                 this.speedX = -this.speedX;
             }
         }
