@@ -10,6 +10,8 @@ Engine.prototype.cameraSpeed = 0;
 Engine.prototype.planet = new Planet();
 // @var enemies an array of the enemies
 Engine.prototype.enemies = new Array();
+// @var explosions an array of explosions
+Engine.prototype.explosions = new Array();
 // @var cities an array of the cities
 Engine.prototype.cities = new Array();
 // @var player the player
@@ -167,6 +169,12 @@ Engine.prototype.update = function() {
         }
     }
 
+    // We update explosions
+    for (var i = this.explosions.length - 1; i >= 0; i--) {
+        if (this.explosions[i].update()) {
+            this.explosions[i] = null;
+        }
+    };
 
     // We check the collisions
     this.checkEnemyLaserCollisions();
@@ -214,7 +222,7 @@ Engine.prototype.checkEnemyLaserCollisions = function() {
                     }
 
                     this.enemies[i] = null;
-                    // TODO EXPLOSION
+                    this.explosions.push(new Explosion());
                     break;
                 }
 
@@ -234,7 +242,7 @@ Engine.prototype.checkCityLaserCollisions = function() {
                         this.points += POINTS_CITY;
                         this.cities[i] = null;
                     }
-                    // TODO EXPLOSION
+                    this.explosions.push(new Explosion());
                     break;
                 }
 

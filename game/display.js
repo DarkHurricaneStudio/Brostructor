@@ -15,11 +15,10 @@ Display.prototype.height;
 
 Display.prototype.imageBackground;
 Display.prototype.HUD;
-
-// methods
-
+Display.prototype.explosionTiles;
 
 
+// Methods
 Display.prototype.drawBackground = function() {
     this.backContext.drawImage(this.imageBackground, 0, 0);
 }
@@ -75,6 +74,12 @@ Display.prototype.drawLaser = function(laser, engine) {
     }
 }
 
+Display.prototype.drawExplosion = function(explosion, engine) {
+    if (explosion != null) {
+        this.context.drawImage(this.explosionTiles, EXPLOSION_WIDTH * explosion.getStatus(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, explosion.getX(), explosion.getY())
+    }
+}
+
 Display.prototype.drawHUD = function(engine) {
     this.context.drawImage(this.HUD, 0, 0);
 
@@ -109,6 +114,9 @@ Display.prototype.draw = function(engine) {
         for (var i = 0; i < engine.getEnemiesLasers().length; i++) {
             this.drawLaser(engine.getEnemiesLasers()[i], engine);
         }
+        for (var i = 0; i < engine.getExplosions().length; i++) {
+            this.drawExplosion(engine.getExplosions()[i], engine);
+        }
         this.drawHUD(engine);
     } else {
         this.drawLoadingScreen();
@@ -119,8 +127,13 @@ Display.prototype.draw = function(engine) {
 Display.prototype.load = function() {
     this.imageBackground = new Image();
     this.imageBackground.src = "images/background.png";
+
     this.HUD = new Image();
     this.HUD.src = "images/HUD.png";
+
+    this.explosionTiles = new Image();
+    this.explosionTiles.src = "images/explosion.png";
+
     // once the background is loaded, we display it and the planet
     this.imageBackground.onload = function() {
         display.drawBackground();

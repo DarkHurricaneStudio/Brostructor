@@ -6,6 +6,8 @@ var Explosion = function(pPosX, pPosY) {
 // fields
 Explosion.prototype.posX = 0;
 Explosion.prototype.posY = 0;
+Explosion.prototype.state = 0;
+Explosion.prototype.frameCounter = 0;
 
 // methods
 /*
@@ -13,13 +15,27 @@ Explosion.prototype.posY = 0;
  * Otherwise, return false
  */
 Laser.prototype.update = function() {
+    this.frameCounter++;
+    if (this.frameCounter > EXPLOSION_FRAMES_PER_TILE) {
+        this.state++;
+        if (this.state = EXPLOSION_TILES) {
+            // Will destroy the explosion
+            return true;
+        }
+        this.frameCounter = 0;
+    }
     return false;
+}
 
-    //getters
-    Explosion.prototype.getPosX = function() {
-        return this.posX;
-    }
+//getters
+Explosion.prototype.getPosX = function() {
+    return this.posX;
+}
 
-    Explosion.prototype.getPosY = function() {
-        return this.posY;
-    }
+Explosion.prototype.getPosY = function() {
+    return this.posY;
+}
+
+Explosion.prototype.getStatus = function() {
+    return this.state;
+}
