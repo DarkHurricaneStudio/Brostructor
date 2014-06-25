@@ -76,7 +76,9 @@ Display.prototype.drawLaser = function(laser, engine) {
 
 Display.prototype.drawExplosion = function(explosion, engine) {
     if (explosion != null) {
-        this.context.drawImage(this.explosionTiles, EXPLOSION_WIDTH * explosion.getStatus(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, explosion.getX(), explosion.getY())
+        var x = engine.convertPosition(explosion.getPosX());
+        var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + explosion.getPosY();
+        this.context.drawImage(this.explosionTiles, EXPLOSION_WIDTH * explosion.getStatus(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, x, y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
     }
 }
 

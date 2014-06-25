@@ -14,11 +14,11 @@ Explosion.prototype.frameCounter = 0;
  * Return true if the explosion can be destroy
  * Otherwise, return false
  */
-Laser.prototype.update = function() {
+Explosion.prototype.update = function() {
     this.frameCounter++;
     if (this.frameCounter > EXPLOSION_FRAMES_PER_TILE) {
         this.state++;
-        if (this.state = EXPLOSION_TILES) {
+        if (this.state == EXPLOSION_TILES) {
             // Will destroy the explosion
             return true;
         }

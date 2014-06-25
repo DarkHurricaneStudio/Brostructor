@@ -171,9 +171,10 @@ Engine.prototype.update = function() {
 
     // We update explosions
     for (var i = this.explosions.length - 1; i >= 0; i--) {
-        if (this.explosions[i].update()) {
+        if (this.explosions[i] != null && this.explosions[i].update()) {
             this.explosions[i] = null;
         }
+
     };
 
     // We check the collisions
@@ -221,8 +222,8 @@ Engine.prototype.checkEnemyLaserCollisions = function() {
                         this.points += POINTS_ENEMY;
                     }
 
+                    this.explosions.push(new Explosion(this.enemies[i].getPosX(), this.enemies[i].getPosY()));
                     this.enemies[i] = null;
-                    this.explosions.push(new Explosion());
                     break;
                 }
 
@@ -242,7 +243,7 @@ Engine.prototype.checkCityLaserCollisions = function() {
                         this.points += POINTS_CITY;
                         this.cities[i] = null;
                     }
-                    this.explosions.push(new Explosion());
+                    this.explosions.push(new Explosion(this.enemies[i].getPosX(), this.enemies[i].getPosY()));
                     break;
                 }
 
@@ -332,4 +333,8 @@ Engine.prototype.getPoints = function() {
 
 Engine.prototype.isLoadingLevel = function() {
     return this.loadingLevel;
+}
+
+Engine.prototype.getExplosions = function() {
+    return this.explosions;
 }
