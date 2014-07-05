@@ -24,13 +24,13 @@ Player.prototype.move = function(direction) {
 Player.prototype.updateGraphicState = function(direction) {
     switch (direction) {
         case "left":
-        if (this.graphicState != (-1)*PLAYER_TRANSITION_FRAMES) {
+        if (this.graphicState != (-1)*PLAYER_TRANSITION_FRAMES*PLAYER_FRAMES_PER_ANIMATION) {
             this.graphicState--;
         }
         break;
       
         case "right":
-        if (this.graphicState != PLAYER_TRANSITION_FRAMES) {
+        if (this.graphicState != PLAYER_TRANSITION_FRAMES*PLAYER_FRAMES_PER_ANIMATION) {
             this.graphicState++;
         }
         break;
