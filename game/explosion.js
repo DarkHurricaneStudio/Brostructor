@@ -36,6 +36,6 @@ Explosion.prototype.getPosY = function() {
     return this.posY;
 }
 
-Explosion.prototype.getStatus = function() {
+Explosion.prototype.getGraphicState = function() {
     return this.state;
 }

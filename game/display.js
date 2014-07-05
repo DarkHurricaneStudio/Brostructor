@@ -16,7 +16,7 @@ Display.prototype.height;
 Display.prototype.imageBackground;
 Display.prototype.HUD;
 Display.prototype.explosionTiles;
-
+Display.prototype.playerTiles;
 
 // Methods
 Display.prototype.drawBackground = function() {
@@ -43,7 +43,9 @@ Display.prototype.drawPlanet = function(planet, engine) {
 
 Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
-    this.context.fillRect(engine.convertPosition(player.getPosX()), player.getPosY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+    var x = engine.convertPosition(player.getPosX());
+    var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + player.getPosY();
+    this.context.drawImage(this.playerTiles, PLAYER_WIDTH * (player.getGraphicState()+PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
@@ -78,7 +80,7 @@ Display.prototype.drawExplosion = function(explosion, engine) {
     if (explosion != null) {
         var x = engine.convertPosition(explosion.getPosX());
         var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + explosion.getPosY();
-        this.context.drawImage(this.explosionTiles, EXPLOSION_WIDTH * explosion.getStatus(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, x, y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
+        this.context.drawImage(this.explosionTiles, EXPLOSION_WIDTH * explosion.getGraphicState(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, x, y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
     }
 }
 
@@ -135,6 +137,9 @@ Display.prototype.load = function() {
 
     this.explosionTiles = new Image();
     this.explosionTiles.src = "images/explosion.png";
+
+    this.playerTiles = new Image();
+    this.playerTiles.src = "images/brostructor.png";
 
     // once the background is loaded, we display it and the planet
     this.imageBackground.onload = function() {
