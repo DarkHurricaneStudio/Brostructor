@@ -135,9 +135,9 @@ Engine.prototype.update = function() {
     }
 
     // we update the camera speed
-    //if ((-this.cameraSpeed) != this.player.getSpeedX()) {
-    //    this.cameraSpeed = Math.round(this.cameraSpeed - this.player.getSpeedX() / 8);
+
     this.cameraSpeed = -this.player.getSpeedX();
+
 
     // we update the offset position
     if (this.cameraSpeed != 0) {
