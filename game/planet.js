@@ -31,14 +31,15 @@ Planet.prototype.render = function(offset) {
     this.renders[offset].width = CANVAS_WIDTH;
     this.renders[offset].height = PLANET_HEIGHT;
     var ctx = this.renders[offset].getContext('2d');
-
+    var startTime = new Date();
     for (var i = 0; i < CANVAS_WIDTH; i++) {
         var y = Utils.getPlanetCurvePosition(i, CANVAS_WIDTH, PLANET_DEVIATION);
         var mapPos = (offset + i) % PLANET_WIDTH;
-        ctx.drawImage(this.map, mapPos, 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
+        ctx.drawImage(this.map, Math.round(mapPos), 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
 
     }
-
+    var endTime = (new Date()) - startTime;
+    console.log("dessin" + endTime);
 }
 
 // getters
