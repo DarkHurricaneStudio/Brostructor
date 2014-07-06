@@ -35,7 +35,7 @@ Planet.prototype.render = function(offset) {
     for (var i = 0; i < CANVAS_WIDTH; i++) {
         var y = Utils.getPlanetCurvePosition(i, CANVAS_WIDTH, PLANET_DEVIATION);
         var mapPos = (offset + i) % PLANET_WIDTH;
-        ctx.drawImage(this.map, Math.round(mapPos), 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
+        ctx.drawImage(this.map, Math.round(mapPos), 0, 1, PLANET_HEIGHT, i, Math.round(y), 1, PLANET_HEIGHT);
 
     }
     var endTime = (new Date()) - startTime;
