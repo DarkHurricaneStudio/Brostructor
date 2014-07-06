@@ -45,7 +45,7 @@ Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
     var x = engine.convertPosition(player.getPosX());
     var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + player.getPosY();
-    this.context.drawImage(this.playerTiles, PLAYER_WIDTH * (Math.floor(player.getGraphicState()/PLAYER_FRAMES_PER_ANIMATION)+PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    this.context.drawImage(this.playerTiles, PLAYER_WIDTH * (Math.floor(player.getGraphicState() / PLAYER_FRAMES_PER_ANIMATION) + PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {

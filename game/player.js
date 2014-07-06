@@ -24,26 +24,26 @@ Player.prototype.move = function(direction) {
 Player.prototype.updateGraphicState = function(direction) {
     switch (direction) {
         case "left":
-        if (this.graphicState != (-1)*PLAYER_TRANSITION_FRAMES*PLAYER_FRAMES_PER_ANIMATION) {
-            this.graphicState--;
-        }
-        break;
-      
-        case "right":
-        if (this.graphicState != PLAYER_TRANSITION_FRAMES*PLAYER_FRAMES_PER_ANIMATION) {
-            this.graphicState++;
-        }
-        break;
+            if (this.graphicState != (-1) * PLAYER_TRANSITION_FRAMES * PLAYER_FRAMES_PER_ANIMATION) {
+                this.graphicState--;
+            }
+            break;
 
-        default:
-        if (this.graphicState > 0) {
-            this.graphicState--;
-        } else {
-            if (this.graphicState < 0) {
+        case "right":
+            if (this.graphicState != PLAYER_TRANSITION_FRAMES * PLAYER_FRAMES_PER_ANIMATION) {
                 this.graphicState++;
             }
-        }
-        break;
+            break;
+
+        default:
+            if (this.graphicState > 0) {
+                this.graphicState--;
+            } else {
+                if (this.graphicState < 0) {
+                    this.graphicState++;
+                }
+            }
+            break;
     }
 }
 

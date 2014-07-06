@@ -239,8 +239,7 @@ Utils.imageDataPerlinNoise = function(width, length, maxHeight, stepX, stepY, pe
 
         }
 
-    }
-
+}
     // we display this imagedata in the planet canvas
     context.putImageData(image, 0, 0);
 

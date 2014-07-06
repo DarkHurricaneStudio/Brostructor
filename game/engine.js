@@ -1,6 +1,5 @@
 var Engine = function() {};
 
-
 // attributes
 // @var offset the offset used for the display
 Engine.prototype.offset = 0;
@@ -18,6 +17,8 @@ Engine.prototype.cities = new Array();
 Engine.prototype.player = new Player();
 // @var level the number of the level
 Engine.prototype.level = 0;
+
+Engine.prototype.running = false;
 //
 Engine.prototype.enemiesLasers = new Array();
 // @var loadingLevel true if the level is generating, false if not
@@ -54,6 +55,7 @@ Engine.prototype.generateLevel = function() {
     this.enemiesLasers = new Array();
     this.loadingLevel = false;
 
+    this.running = true;
 };
 
 Engine.prototype.spawnEnemies = function() {
@@ -269,6 +271,7 @@ Engine.prototype.checkPlayerEnemyCollisions = function() {
 
             if (Math.sqrt((playerXCenter - enemyXCenter) * (playerXCenter - enemyXCenter) + (playerYCenter - enemyYCenter) * (playerYCenter - enemyYCenter)) <= minimumRadius) {
                 // oups, we are dead !
+                this.explosions.push(new Explosion(this.player.getPosX(), this.player.getPosY()));
                 this.endGame();
                 break;
             }
@@ -281,6 +284,7 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
         if (this.enemiesLasers[i] != null) {
             if (this.enemiesLasers[i].getPosY() + LASER_HEIGHT > this.player.getPosY() && this.enemiesLasers[i].getPosY() < this.player.getPosY() + PLAYER_HEIGHT && this.enemiesLasers[i].getPosX() + LASER_WIDTH > this.player.getPosX() && this.enemiesLasers[i].getPosX() < this.player.getPosX() + PLAYER_WIDTH) {
                 this.enemiesLasers[i] = null;
+                this.explosions.push(new Explosion(this.player.getPosX(), this.player.getPosY()));
                 this.endGame();
                 break;
             }
@@ -289,9 +293,7 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
 };
 
 Engine.prototype.endGame = function() {
-    console.log("You are dead you irrevelant bitch !");
-    // TODO EXPLOSION
-    // todo : end of the game
+    this.running = false;
 }
 
 Engine.prototype.nextlevel = function() {
@@ -338,4 +340,8 @@ Engine.prototype.isLoadingLevel = function() {
 
 Engine.prototype.getExplosions = function() {
     return this.explosions;
+}
+
+Engine.prototype.isRunning = function() {
+    return this.running;
 }

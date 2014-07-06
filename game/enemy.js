@@ -39,11 +39,11 @@ Enemy.prototype.updateAI = function(engine) {
         this.speedY *= ENEMY_KAMIKAZE_MAX_SPEED;
         // we check if the enemy has to go to the right or the left
         if (this.posX > engine.getPlayer().getPosX()) {
-                this.speedX = -this.speedX;
+            this.speedX = -this.speedX;
         }
         // Robrock's greatest achievment of all time : trying to correct a "feature" (it's obviously not a bug)
-        if (Math.abs(this.posX-engine.getPlayer().getPosX()) > 1024) {
-                this.speedX = -this.speedX;
+        if (Math.abs(this.posX - engine.getPlayer().getPosX()) > 1024) {
+            this.speedX = -this.speedX;
         }
         if (this.posY > engine.getPlayer().getPosY()) {
             this.speedY = -this.speedY;

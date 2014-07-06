@@ -33,10 +33,11 @@ window.addEventListener('load', function() {
 
 
 function gameUpdate() {
-    // Bro
-    engine.checkInputs(keys);
-    engine.update();
-
+    if (engine.isRunning()) {
+        // Bro
+        engine.checkInputs(keys);
+        engine.update();
+    }
 }
 
 
