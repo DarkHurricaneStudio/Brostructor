@@ -13,7 +13,7 @@ Enemy.prototype.speedX = 0;
 Enemy.prototype.speedY = 0;
 Enemy.prototype.kamikaze = false;
 Enemy.prototype.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
-
+Enemy.prototype.graphicState = 0;
 
 // methods
 Enemy.prototype.update = function(engine) {
@@ -48,6 +48,14 @@ Enemy.prototype.updateAI = function(engine) {
         if (this.posY > engine.getPlayer().getPosY()) {
             this.speedY = -this.speedY;
         }
+
+        var direction;
+        if (this.speedX > 0) {
+            direction = "right";
+        } else {
+            direction = "left";
+        }
+        this.updateGraphicState(direction);
     } else {
         // Now, it's time for us to shoot some invader !
         // first way
@@ -61,6 +69,32 @@ Enemy.prototype.updateAI = function(engine) {
         this.reloadTime--;
     }
 
+}
+
+Enemy.prototype.updateGraphicState = function(direction) {
+    switch (direction) {
+        case "left":
+            if (this.graphicState != (-1) * ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
+                this.graphicState--;
+            }
+            break;
+
+        case "right":
+            if (this.graphicState != ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
+                this.graphicState++;
+            }
+            break;
+
+        default:
+            if (this.graphicState > 0) {
+                this.graphicState--;
+            } else {
+                if (this.graphicState < 0) {
+                    this.graphicState++;
+                }
+            }
+            break;
+    }
 }
 
 Enemy.prototype.setSpeed = function(speedX, speedY) {
@@ -80,4 +114,8 @@ Enemy.prototype.getPosY = function() {
 
 Enemy.prototype.isKamikaze = function() {
     return this.kamikaze;
+}
+
+Enemy.prototype.getGraphicState = function() {
+    return this.graphicState;
 }
