@@ -147,7 +147,8 @@ Engine.prototype.update = function() {
             this.cameraSpeed = -this.player.getSpeedX();
         }
 
-    } else if (engine.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
+    }
+    if (engine.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
 
         this.cameraSpeed = -(engine.convertPosition(this.player.getPosX()) - PLAYER_MIDDLE_POSITION) / 32;
 
