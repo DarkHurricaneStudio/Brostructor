@@ -45,7 +45,7 @@ Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
     var x = engine.convertPosition(player.getPosX());
     var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + player.getPosY();
-    this.context.drawImage(this.playerTiles, PLAYER_WIDTH * (Math.floor(player.getGraphicState()/PLAYER_FRAMES_PER_ANIMATION)+PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    this.context.drawImage(this.playerTiles, PLAYER_WIDTH * (Math.floor(player.getGraphicState() / PLAYER_FRAMES_PER_ANIMATION) + PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
@@ -53,7 +53,7 @@ Display.prototype.drawEnemy = function(enemy, engine) {
         this.context.fillStyle = '#00ff00';
         var x = engine.convertPosition(enemy.getPosX());
         var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + enemy.getPosY();
-        this.context.fillRect(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+        this.context.drawImage(this.enemyTiles, ENEMY_WIDTH * (Math.floor(enemy.getGraphicState() / ENEMY_FRAMES_PER_ANIMATION) + ENEMY_TRANSITION_FRAMES), 0, ENEMY_WIDTH, ENEMY_HEIGHT, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
     }
 }
 
@@ -140,6 +140,9 @@ Display.prototype.load = function() {
 
     this.playerTiles = new Image();
     this.playerTiles.src = "images/brostructor.png";
+
+    this.enemyTiles = new Image();
+    this.enemyTiles.src = "images/enemy.png";
 
     // once the background is loaded, we display it and the planet
     this.imageBackground.onload = function() {
