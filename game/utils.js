@@ -251,3 +251,7 @@ Utils.getPlanetCurvePosition = function(x, canvasWidth, deviation) {
     return (-((x - canvasWidth / 2) * (x - canvasWidth / 2) * deviation / (canvasWidth * canvasWidth / 4)));
 
 }
+
+Utils.sign = function(x) {
+    return (x / Math.abs(x));
+}
