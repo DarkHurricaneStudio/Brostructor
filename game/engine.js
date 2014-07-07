@@ -145,16 +145,19 @@ Engine.prototype.update = function() {
             this.cameraSpeed = -this.player.getSpeedX();
         }
 
+    } else if (engine.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
 
-    } else if (this.cameraSpeed != 0) { // we decrease speed until we meet zero
-        this.cameraSpeed = this.cameraSpeed - (Utils.sign(this.cameraSpeed) * PLAYER_SPEED_X / 32);
+        this.cameraSpeed = -(engine.convertPosition(this.player.getPosX()) - PLAYER_MIDDLE_POSITION) / 32;
 
+    } else {
+        this.cameraSpeed = 0;
+        console.log("arrêt total");
     }
 
 
     // we update the offset position
     if (this.cameraSpeed != 0) {
-        this.setOffset(this.offset + this.cameraSpeed);
+        this.setOffset(this.offset + Math.round(this.cameraSpeed));
     }
 
 

@@ -239,7 +239,7 @@ Utils.imageDataPerlinNoise = function(width, length, maxHeight, stepX, stepY, pe
 
         }
 
-}
+    }
     // we display this imagedata in the planet canvas
     context.putImageData(image, 0, 0);
 
@@ -252,5 +252,8 @@ Utils.getPlanetCurvePosition = function(x, canvasWidth, deviation) {
 }
 
 Utils.sign = function(x) {
+    if (x == 0) {
+        return 0;
+    }
     return (x / Math.abs(x));
 }
