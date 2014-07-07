@@ -49,13 +49,6 @@ Enemy.prototype.updateAI = function(engine) {
             this.speedY = -this.speedY;
         }
 
-        var direction;
-        if (this.speedX > 0) {
-            direction = "right";
-        } else {
-            direction = "left";
-        }
-        this.updateGraphicState(direction);
     } else {
         // Now, it's time for us to shoot some invader !
         // first way
@@ -68,6 +61,13 @@ Enemy.prototype.updateAI = function(engine) {
         }
         this.reloadTime--;
     }
+    var direction;
+    if (this.speedX > 0) {
+        direction = "right";
+    } else {
+        direction = "left";
+    }
+    this.updateGraphicState(direction);
 
 }
 
