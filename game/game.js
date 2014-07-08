@@ -50,11 +50,14 @@ Game.coreUpdate = function() {
 
 Game.graphicalUpdate = function() {
 
+    // we draw the game
     Game.display.draw(Game.engine);
 }
 
 Game.stop = function() {
+
     // we go to the death menu
+    console.log("U're dead. lol noob faggot")
     Main.state = MAIN_STATE_DEATH_MENU;
     // we check if the score is higher than the actual best score
     if (Game.engine.points > Game.bestScore) {
