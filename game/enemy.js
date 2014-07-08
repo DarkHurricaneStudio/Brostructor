@@ -7,7 +7,7 @@ var Enemy = function(posX, posY, kamikaze) {
     this.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
 
     if (!this.kamikaze) {
-        this.graphicState = Math.floor(this.speedX * ENEMY_FRAMES_PER_ANIMATION / ENEMY_MAX_SPEED) * ENEMY_TRANSITION_FRAMES;
+        this.graphicState = Math.floor(ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION / ENEMY_MAX_SPEED * this.speedX);
     }
 }
 
@@ -79,13 +79,13 @@ Enemy.prototype.updateAI = function(engine) {
 Enemy.prototype.updateGraphicState = function(direction) {
     switch (direction) {
         case "left":
-            if (this.graphicState >= (-1) * ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
+            if (this.graphicState > (-1) * ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
                 this.graphicState--;
             }
             break;
 
         case "right":
-            if (this.graphicState <= ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
+            if (this.graphicState < ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
                 this.graphicState++;
             }
             break;
