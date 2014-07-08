@@ -5,6 +5,10 @@ var Enemy = function(posX, posY, kamikaze) {
     // we had a random speed
     this.speedX = Math.random() * ENEMY_MAX_SPEED * 2 - ENEMY_MAX_SPEED;
     this.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
+
+    if (!this.kamikaze) {
+        this.graphicState = Math.floor(this.speedX * ENEMY_FRAMES_PER_ANIMATION / ENEMY_MAX_SPEED) * ENEMY_TRANSITION_FRAMES;
+    }
 }
 
 // fields
@@ -50,6 +54,13 @@ Enemy.prototype.updateAI = function(engine) {
             this.speedY = -this.speedY;
         }
 
+        var direction;
+        if (this.speedX > 0) {
+            direction = "right";
+        } else {
+            direction = "left";
+        }
+        this.updateGraphicState(direction);
     } else {
         // Now, it's time for us to shoot some invader !
         // first way
@@ -62,26 +73,19 @@ Enemy.prototype.updateAI = function(engine) {
         }
         this.reloadTime--;
     }
-    var direction;
-    if (this.speedX > 0) {
-        direction = "right";
-    } else {
-        direction = "left";
-    }
-    this.updateGraphicState(direction);
 
 }
 
 Enemy.prototype.updateGraphicState = function(direction) {
     switch (direction) {
         case "left":
-            if (this.graphicState != (-1) * ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
+            if (this.graphicState >= (-1) * ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
                 this.graphicState--;
             }
             break;
 
         case "right":
-            if (this.graphicState != ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
+            if (this.graphicState <= ENEMY_TRANSITION_FRAMES * ENEMY_FRAMES_PER_ANIMATION) {
                 this.graphicState++;
             }
             break;
@@ -119,4 +123,8 @@ Enemy.prototype.isKamikaze = function() {
 
 Enemy.prototype.getGraphicState = function() {
     return this.graphicState;
+}
+
+Enemy.prototype.getSpeedX = function() {
+    return this.speedX;
 }
