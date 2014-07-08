@@ -9,7 +9,10 @@ Game.backCanvas;
 Game.context;
 
 Game.state = GAME_STATE_MAIN_MENU; // the state of the game
+Game.StateTimer = 0; // a btimer used to compute the time remaining until the end of a transistion
 Game.fpsCount = 0; // used to compute fps during the game
+Game.bestScore = 0; // The best score from this session
+
 
 Game.init = function() {
     // we init the game
@@ -76,5 +79,10 @@ Game.graphicalUpdate = function() {
 }
 
 Game.die = function() {
+    // we go to the death menu
     Game.state = GAME_SATE_DEATH_MENU;
+    // we check if the score is higher than the actual best score
+    if (Game.engine.points > Game.bestScore) {
+        Game.bestScore = Game.engine.points;
+    }
 }
