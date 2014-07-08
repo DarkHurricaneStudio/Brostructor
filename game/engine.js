@@ -18,7 +18,7 @@ Engine.prototype.player = new Player();
 // @var level the number of the level
 Engine.prototype.level = 0;
 
-Engine.prototype.running = false;
+
 //
 Engine.prototype.enemiesLasers = new Array();
 // @var loadingLevel true if the level is generating, false if not
@@ -55,7 +55,6 @@ Engine.prototype.generateLevel = function() {
     this.enemiesLasers = new Array();
     this.loadingLevel = false;
 
-    this.running = true;
 };
 
 Engine.prototype.spawnEnemies = function() {
@@ -148,13 +147,13 @@ Engine.prototype.update = function() {
         }
 
     }
-    if (engine.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
+    if (this.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
 
-        this.cameraSpeed = -(engine.convertPosition(this.player.getPosX()) - PLAYER_MIDDLE_POSITION) / 32;
+        this.cameraSpeed = -(this.convertPosition(this.player.getPosX()) - PLAYER_MIDDLE_POSITION) / 32;
 
     } else {
         this.cameraSpeed = 0;
-        console.log("arrêt total");
+
     }
 
 
@@ -310,7 +309,7 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
 };
 
 Engine.prototype.endGame = function() {
-    this.running = false;
+    Game.die();
 }
 
 Engine.prototype.nextlevel = function() {
@@ -357,8 +356,4 @@ Engine.prototype.isLoadingLevel = function() {
 
 Engine.prototype.getExplosions = function() {
     return this.explosions;
-}
-
-Engine.prototype.isRunning = function() {
-    return this.running;
 }

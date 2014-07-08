@@ -1,4 +1,4 @@
-var gameCanvas = document.getElementById('jeu');
+/*var gameCanvas = document.getElementById('jeu');
 var backCanvas = document.getElementById('background');
 var context = gameCanvas.getContext('2d');
 var display = new Display(gameCanvas, backCanvas);
@@ -65,3 +65,38 @@ function mainLoop() {
         refreshGame();
     }
 }
+*/
+
+// we init the game
+Game.init();
+
+window.addEventListener('load', function() {
+
+
+    // If we don't get the canvacs, stop
+    if (!Game.gameCanvas || !Game.gameCanvas.getContext) {
+        return;
+    }
+
+    // If we don't get the context, stop
+    if (!Game.context) {
+        return;
+    }
+
+
+    // we initialize the display
+    Game.display.load();
+    // we initialize the audioManager
+    Game.audioManager.load();
+
+    // we begin the music
+    Game.audioManager.backgroundMusic.play();
+
+    // we set some serious business
+    // Main loop at 80FPS
+    // we call the Game.coreUpdate every 12.5 milliseconds
+    setInterval(Game.coreUpdate, 12.5);
+    // and we request to repaint the game with the Game.graphicalUpdate
+    requestAnimationFrame(Game.graphicalUpdate);
+    // false beacause not true
+}, false);

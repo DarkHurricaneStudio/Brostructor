@@ -4,6 +4,7 @@ var Enemy = function(posX, posY, kamikaze) {
     this.kamikaze = kamikaze;
     // we had a random speed
     this.speedX = Math.random() * ENEMY_MAX_SPEED * 2 - ENEMY_MAX_SPEED;
+    this.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
 }
 
 // fields
@@ -12,7 +13,7 @@ Enemy.prototype.posY = 0;
 Enemy.prototype.speedX = 0;
 Enemy.prototype.speedY = 0;
 Enemy.prototype.kamikaze = false;
-Enemy.prototype.reloadTime = ENEMY_LASER_RECOVERY + ENEMY_LASER_RECOVERY * Math.random();
+Enemy.prototype.reloadTime = 0;
 Enemy.prototype.graphicState = 0;
 
 // methods
