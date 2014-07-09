@@ -243,7 +243,7 @@ Engine.prototype.checkCityLaserCollisions = function() {
                         this.points += POINTS_CITY;
                         this.cities[i] = null;
                     }
-                    this.explosions.push(new Explosion(this.enemies[i].getPosX(), this.enemies[i].getPosY()));
+                    this.explosions.push(new Explosion(this.cities[i].getPosX(), this.cities[i].getPosY()));
                     break;
                 }
 
