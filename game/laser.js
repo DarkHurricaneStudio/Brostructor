@@ -34,7 +34,7 @@ var Laser = function(pPosX, pPosY, shotByPlayer) {
         this.SPEEDY = -this.SPEEDY;
     }
 
-    Game.audioManager.laserSound.play();
+    Main.audioManager.laserSound.play();
 
 };
 

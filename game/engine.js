@@ -82,26 +82,7 @@ Engine.prototype.spawnCities = function() {
     }
 }
 
-Engine.prototype.checkInputs = function(inputs) {
 
-    // we check the movements
-    if (inputs[KEY_LEFT] == true && inputs[KEY_RIGHT] == true) {
-        //nothing here
-    } else if (inputs[KEY_LEFT] == true) { // left arrow
-        this.player.move('left');
-    } else if (inputs[KEY_RIGHT] == true) { // right arrow
-        this.player.move('right');
-    } else {
-        this.player.move('none');
-    }
-
-    if (inputs[KEY_SPACE] == true) { // space
-        this.createLaser();
-    }
-    if (inputs[KEY_ESCAPE] == true) { // escape
-        pause = !pause;
-    }
-}
 
 
 
@@ -309,7 +290,7 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
 };
 
 Engine.prototype.endGame = function() {
-    Game.die();
+    Game.stop();
 }
 
 Engine.prototype.nextlevel = function() {
