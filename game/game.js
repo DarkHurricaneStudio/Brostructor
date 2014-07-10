@@ -18,6 +18,12 @@ Game.init = function() {
     // we start by generating a level
     Game.engine.generateLevel();
 
+    // we initialize the display
+    Game.display.load();
+
+    // we begin the music
+    Main.audioManager.backgroundMusic.play();
+
 }
 
 Game.checkInputs = function(inputs) {

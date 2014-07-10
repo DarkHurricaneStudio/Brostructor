@@ -29,12 +29,12 @@ Main.init = function() {
     // we create the audioManager object, to play sounds
     Main.audioManager = new AudioManager();
 
-    // we init the game
-    Game.init();
 
     // DEBUG !
     // we start with the game state (no menu at this time)
-    Main.state = MAIN_STATE_INGAME;
+    Main.state = MAIN_STATE_LOADING_GAME;
+    // we init the first state
+    LoadingGame.init();
 
 
 };
@@ -58,6 +58,12 @@ Main.graphicalUpdate = function() {
 
     // we choose what to draw
     switch (Main.state) {
+        case MAIN_STATE_LOADING_GAME:
+            LoadingGame.graphicalUpdate();
+            break;
+        case MAIN_STATE_DHS_LOGO_TRANSITION:
+            DHSLogoTransition.graphicalUpdate();
+            break;
         case MAIN_STATE_INGAME:
             Game.graphicalUpdate();
             break;
@@ -72,8 +78,53 @@ Main.coreUpdate = function() {
 
     // we choose what to update
     switch (Main.state) {
+        case MAIN_STATE_LOADING_GAME:
+            LoadingGame.coreUpdate();
+            break;
+        case MAIN_STATE_DHS_LOGO_TRANSITION:
+            DHSLogoTransition.coreUpdate(); // this method does nothing
+            break;
         case MAIN_STATE_INGAME:
             Game.coreUpdate();
+            break;
+
+
+        default:
+            break;
+    }
+
+    // if there is a timer, we decrease it
+    if (Main.stateTimer > 0) {
+        Main.stateTimer--;
+        if (Main.stateTimer == 0) {
+            // we stop the transition and go to another state
+            switch (Main.state) { // only transition here
+                case MAIN_STATE_DHS_LOGO_TRANSITION:
+                    DHSLogoTransition.stop(); // this method does nothing
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+}
+
+Main.changeStateTo = function(state, newTimer) {
+    // we jump to the new state
+    Main.state = state;
+    // we change the new timer
+    Main.stateTimer = newTimer;
+    // we init the new state
+    // execept for the menu, that was already initiate
+    switch (Main.state) {
+        case MAIN_STATE_LOADING_GAME: // never called
+            LoadingGame.init();
+            break;
+        case MAIN_STATE_INGAME: // nothing to do here
+            break;
+        case MAIN_STATE_DHS_LOGO_TRANSITION:
+            DHSLogoTransition.init(); // this method does nothing
             break;
 
         default:
@@ -101,13 +152,7 @@ window.addEventListener('load', function() {
     }
 
 
-    // we initialize the display
-    Game.display.load();
-    // we initialize the audioManager
-    Main.audioManager.load();
 
-    // we begin the music
-    Main.audioManager.backgroundMusic.play();
 
     // we set some serious business
     // Main loop at 80FPS
