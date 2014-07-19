@@ -30,6 +30,6 @@ LoadingGame.stop = function() {
     console.log("Game succesfully load !");
 
     // normally we have to go to the menu, but fuck it
-    Main.changeStateTo(MAIN_STATE_DHS_LOGO_TRANSITION, 500);
+    Main.changeStateTo(MAIN_STATE_DHS_LOGO_TRANSITION, MAIN_STATE_DHS_LOGO_TRANSITION_TIMER);
 
 }

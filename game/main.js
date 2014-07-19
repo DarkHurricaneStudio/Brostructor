@@ -82,7 +82,7 @@ Main.coreUpdate = function() {
             LoadingGame.coreUpdate();
             break;
         case MAIN_STATE_DHS_LOGO_TRANSITION:
-            DHSLogoTransition.coreUpdate(); // this method does nothing
+            DHSLogoTransition.coreUpdate();
             break;
         case MAIN_STATE_INGAME:
             Game.coreUpdate();
@@ -133,6 +133,10 @@ Main.changeStateTo = function(state, newTimer) {
 
 }
 
+
+Main.getStateTimer = function() {
+    return this.stateTimer;
+}
 
 // real game part
 

@@ -1,26 +1,28 @@
 var DHSLogoTransition = function() {};
 
-DHSLogoTransition.init = function() {
+DHSLogoTransition.prototype.image = null;
+DHSLogoTransition.prototype.opacity = 0;
 
-    // nothing here
+DHSLogoTransition.init = function() {
+    this.image = new Image();
+    this.image.src = "images/logoDHS.png";
 }
 
 DHSLogoTransition.coreUpdate = function() {
-    // nothing here
-
+    this.opacity = (Main.getStateTimer() / MAIN_STATE_DHS_LOGO_TRANSITION_TIMER);
 }
 
 DHSLogoTransition.graphicalUpdate = function() {
-
     //we hide the background
-    Main.context.fillStyle = "lightgrey";
+    Main.context.fillStyle = "black";
     Main.context.fillRect(0, 0, Main.gameCanvas.width, Main.gameCanvas.height);
 
-    // we write a little funny text
-    Main.context.font = "20px Arial";
-    Main.context.fillStyle = "#000000";
-    Main.context.fillText("Some DHS stuff", 10, 10);
+    // We set the alpha
+    Main.context.globalAlpha = this.opacity;
+    Main.context.drawImage(this.image, 0, 0);
 
+    // We reset the alpha for other graphic operations
+    Main.context.globalAlpha = 1;
 }
 
 DHSLogoTransition.stop = function() {
