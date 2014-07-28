@@ -31,6 +31,7 @@ DHSLogoTransition.graphicalUpdate = function() {
 
     // We reset the alpha for other graphic operations
     Main.context.globalAlpha = 1;
+
 }
 
 DHSLogoTransition.stop = function() {
