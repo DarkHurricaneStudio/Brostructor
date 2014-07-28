@@ -67,7 +67,9 @@ Main.graphicalUpdate = function() {
         case MAIN_STATE_INGAME:
             Game.graphicalUpdate();
             break;
-
+        case MAIN_STATE_BD:
+            BDState.graphicalUpdate();
+            break;
         default:
             break;
     }
@@ -87,8 +89,9 @@ Main.coreUpdate = function() {
         case MAIN_STATE_INGAME:
             Game.coreUpdate();
             break;
-
-
+        case MAIN_STATE_BD:
+            BDState.coreUpdate();
+            break;
         default:
             break;
     }
@@ -100,7 +103,10 @@ Main.coreUpdate = function() {
             // we stop the transition and go to another state
             switch (Main.state) { // only transition here
                 case MAIN_STATE_DHS_LOGO_TRANSITION:
-                    DHSLogoTransition.stop(); // this method does nothing
+                    DHSLogoTransition.stop();
+                    break;
+                case MAIN_STATE_BD:
+                    BDState.stop();
                     break;
                 default:
                     break;
@@ -126,7 +132,9 @@ Main.changeStateTo = function(state, newTimer) {
         case MAIN_STATE_DHS_LOGO_TRANSITION:
             DHSLogoTransition.init(); // this method does nothing
             break;
-
+        case MAIN_STATE_BD:
+            BDState.init();
+            break;
         default:
             break;
     }

@@ -34,8 +34,6 @@ DHSLogoTransition.graphicalUpdate = function() {
 }
 
 DHSLogoTransition.stop = function() {
-
-    // normally we have to go to the menu, but fuck it
-    Main.changeStateTo(MAIN_STATE_INGAME, 0);
+    Main.changeStateTo(MAIN_STATE_BD,MAIN_STATE_DHS_LOGO_TRANSITION_TIMER);
 
 }
