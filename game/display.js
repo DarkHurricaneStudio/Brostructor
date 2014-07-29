@@ -135,26 +135,16 @@ Display.prototype.draw = function(engine) {
 
 
 Display.prototype.load = function() {
-    this.imageBackground = new Image();
-    this.imageBackground.src = "images/background.png";
 
-    this.HUD = new Image();
-    this.HUD.src = "images/HUD.png";
+    this.imageBackground = IMAGE_GAME_BACKGROUND;
+    this.HUD = IMAGE_HUD;
+    this.explosionTiles = IMAGE_EXPLOSION;
+    this.playerTiles = IMAGE_BROSTRUCTOR;
 
-    this.explosionTiles = new Image();
-    this.explosionTiles.src = "images/explosion.png";
+    this.enemyTiles = IMAGE_ENEMY;
 
-    this.playerTiles = new Image();
-    this.playerTiles.src = "images/brostructor.png";
+    this.kamikazeTiles = IMAGE_KAMIKAZE;
 
-    this.enemyTiles = new Image();
-    this.enemyTiles.src = "images/enemy.png";
+    Game.display.drawBackground();
 
-    this.kamikazeTiles = new Image();
-    this.kamikazeTiles.src = "images/kamikaze.png";
-
-    // once the background is loaded, we display it and the planet
-    this.imageBackground.onload = function() {
-        Game.display.drawBackground();
-    }
 }

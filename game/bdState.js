@@ -10,8 +10,7 @@ BDState.prototype.scrollingFrames = 0;
 BDState.prototype.scrollingPixels = 0;
 
 BDState.init = function() {
-    this.image = new Image();
-    this.image.src = "images/intro.png";
+    this.image = IMAGE_BD_INTRO;
 
     this.posY = 0;
     this.scrollingCurrentFrame = 0;

@@ -79,3 +79,13 @@ var MAIN_STATE_DEATH_MENU = 5;
 var MAIN_STATE_BD = 6;
 var MAIN_STATE_BD_TIMER = 1000;
 var MAIN_STATE_BD_FADE_TIME = 150;
+
+var IMAGE_GAME_BACKGROUND = new Image();
+var IMAGE_HUD = new Image();
+var IMAGE_EXPLOSION = new Image();
+var IMAGE_BROSTRUCTOR = new Image();
+var IMAGE_ENEMY = new Image();
+var IMAGE_KAMIKAZE = new Image();
+var IMAGE_LOGO_DHS = new Image();
+var IMAGE_BD_INTRO = new Image();
+var NUMBER_OF_IMAGES_TO_LOAD_LOADINGGAME = 8;

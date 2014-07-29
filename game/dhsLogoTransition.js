@@ -4,8 +4,7 @@ DHSLogoTransition.prototype.image = null;
 DHSLogoTransition.prototype.opacity = 0;
 
 DHSLogoTransition.init = function() {
-    this.image = new Image();
-    this.image.src = "images/logoDHS.png";
+    this.image = IMAGE_LOGO_DHS;
 }
 
 DHSLogoTransition.coreUpdate = function() {
