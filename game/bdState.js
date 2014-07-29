@@ -1,5 +1,5 @@
 var BDState = function() {
-   
+
 };
 
 BDState.prototype.image = null;
@@ -16,11 +16,11 @@ BDState.init = function() {
     this.posY = 0;
     this.scrollingCurrentFrame = 0;
 
-     // Number of frames during scrolling
+    // Number of frames during scrolling
     this.scrollingFrames = MAIN_STATE_BD_TIMER - 2 * MAIN_STATE_BD_FADE_TIME;
 
-        // Pixels to scroll
-        this.scrollingPixels = this.image.height - CANVAS_HEIGHT;
+    // Pixels to scroll
+    this.scrollingPixels = this.image.height - CANVAS_HEIGHT;
 }
 
 BDState.coreUpdate = function() {
@@ -33,12 +33,12 @@ BDState.coreUpdate = function() {
             tmp = 1 - tmp;
         }
     }
-    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (MAIN_STATE_BD_TIMER-MAIN_STATE_BD_FADE_TIME));
+    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (MAIN_STATE_BD_TIMER - MAIN_STATE_BD_FADE_TIME));
 
     //Position update
     if (this.opacity >= 1) {
         this.scrollingCurrentFrame++;
-        this.posY = Math.floor(this.scrollingPixels * (this.scrollingCurrentFrame/this.scrollingFrames));
+        this.posY = Math.floor(this.scrollingPixels * (this.scrollingCurrentFrame / this.scrollingFrames));
     }
 
     console.log(this.posY);
