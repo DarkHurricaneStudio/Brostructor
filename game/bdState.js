@@ -32,15 +32,16 @@ BDState.coreUpdate = function() {
             tmp = 1 - tmp;
         }
     }
-    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (MAIN_STATE_BD_TIMER - MAIN_STATE_BD_FADE_TIME));
+
+    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (this.scrollingFrames));
 
     //Position update
     if (this.opacity >= 1) {
         this.scrollingCurrentFrame++;
-        this.posY = Math.floor(this.scrollingPixels * (this.scrollingCurrentFrame / this.scrollingFrames));
-    }
+        this.posY = Math.floor(this.scrollingPixels * this.scrollingCurrentFrame / this.scrollingFrames);
 
-    console.log(this.posY);
+        console.log(this.posY / this.scrollingPixels + "     " + this.scrollingCurrentFrame / this.scrollingFrames);
+    }
 }
 
 BDState.graphicalUpdate = function() {
@@ -50,7 +51,7 @@ BDState.graphicalUpdate = function() {
 
     // We set the alpha
     Main.context.globalAlpha = this.opacity;
-    Main.context.drawImage(this.image, 0, this.posY * (-1), CANVAS_WIDTH, CANVAS_HEIGHT, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    Main.context.drawImage(this.image, 0, this.posY, CANVAS_WIDTH, CANVAS_HEIGHT, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
     // We reset the alpha for other graphic operations
     Main.context.globalAlpha = 1;

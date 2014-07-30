@@ -16,6 +16,7 @@ DHSLogoTransition.coreUpdate = function() {
             tmp = 1 - tmp;
         }
     }
+
     this.opacity = tmp * 2 * (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER / MAIN_STATE_DHS_LOGO_TRANSITION_STATIC_TIME);
 }
 
@@ -34,6 +35,6 @@ DHSLogoTransition.graphicalUpdate = function() {
 }
 
 DHSLogoTransition.stop = function() {
-    Main.changeStateTo(MAIN_STATE_BD, MAIN_STATE_DHS_LOGO_TRANSITION_TIMER);
+    Main.changeStateTo(MAIN_STATE_BD, MAIN_STATE_BD_TIMER);
 
 }
