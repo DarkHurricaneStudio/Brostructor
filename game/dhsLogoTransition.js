@@ -1,10 +1,10 @@
 var DHSLogoTransition = function() {};
 
-DHSLogoTransition.prototype.image = null;
+//DHSLogoTransition.prototype.image = null;
 DHSLogoTransition.prototype.opacity = 0;
 
 DHSLogoTransition.init = function() {
-    this.image = IMAGE_LOGO_DHS;
+    // this.image = IMAGE_LOGO_DHS;
 }
 
 DHSLogoTransition.coreUpdate = function() {
@@ -17,7 +17,7 @@ DHSLogoTransition.coreUpdate = function() {
         }
     }
 
-    this.opacity = tmp * 2 * (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER / MAIN_STATE_DHS_LOGO_TRANSITION_STATIC_TIME);
+    this.opacity = tmp * 2 * (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER / (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER - MAIN_STATE_DHS_LOGO_TRANSITION_STATIC_TIME));
 }
 
 DHSLogoTransition.graphicalUpdate = function() {
@@ -27,7 +27,7 @@ DHSLogoTransition.graphicalUpdate = function() {
 
     // We set the alpha
     Main.context.globalAlpha = this.opacity;
-    Main.context.drawImage(this.image, 0, 0);
+    Main.context.drawImage(IMAGE_LOGO_DHS, 0, 0);
 
     // We reset the alpha for other graphic operations
     Main.context.globalAlpha = 1;

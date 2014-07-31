@@ -33,7 +33,7 @@ BDState.coreUpdate = function() {
         }
     }
 
-    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (this.scrollingFrames));
+    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (MAIN_STATE_BD_TIMER - this.scrollingFrames));
 
     //Position update
     if (this.opacity >= 1) {
