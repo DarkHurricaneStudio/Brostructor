@@ -21,15 +21,11 @@ var Laser = function(pPosX, pPosY, shotByPlayer) {
             g = Math.floor(55 + Math.random() * 200).toString(16);
             b = Math.floor(255).toString(16);
             break;
-        default:
-            console.log("Erreur");
-            r = Math.floor(55 + Math.random() * 200).toString(16);
-            g = Math.floor(55 + Math.random() * 200).toString(16);
-            b = Math.floor(55 + Math.random() * 200).toString(16);
     }
-
     NB_LASERS++;
     this.color += r + g + b;
+
+    // Change direction if player's shot
     if (shotByPlayer) {
         this.SPEEDY = -this.SPEEDY;
     }

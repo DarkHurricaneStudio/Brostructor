@@ -1,8 +1,5 @@
-var BDState = function() {
+var BDState = function() {};
 
-};
-
-BDState.prototype.image = null;
 BDState.prototype.opacity = 0;
 BDState.prototype.posY = 0;
 BDState.prototype.scrollingCurrentFrame = 0;
@@ -10,8 +7,6 @@ BDState.prototype.scrollingFrames = 0;
 BDState.prototype.scrollingPixels = 0;
 
 BDState.init = function() {
-    this.image = IMAGE_BD_INTRO;
-
     this.posY = 0;
     this.scrollingCurrentFrame = 0;
 
@@ -19,11 +14,12 @@ BDState.init = function() {
     this.scrollingFrames = MAIN_STATE_BD_TIMER - 2 * MAIN_STATE_BD_FADE_TIME;
 
     // Pixels to scroll
-    this.scrollingPixels = this.image.height - CANVAS_HEIGHT;
+    this.scrollingPixels = IMAGE_BD_INTRO.height - CANVAS_HEIGHT;
 }
 
 BDState.coreUpdate = function() {
-    // Opacity update
+    // === Opacity update
+    // The TMP is a value going from -1 to 1 to -1 regularly
     var tmp = Main.getStateTimer() / MAIN_STATE_BD_TIMER;
     if (tmp > 1) {
         tmp = 1;
@@ -32,10 +28,12 @@ BDState.coreUpdate = function() {
             tmp = 1 - tmp;
         }
     }
+    tmp *= 2;
 
-    this.opacity = tmp * 2 * (MAIN_STATE_BD_TIMER / (MAIN_STATE_BD_TIMER - this.scrollingFrames));
+    // TMP multiplied by TIMER/TRANSISTION_TIME to increase the value of opacity
+    this.opacity = tmp * (MAIN_STATE_BD_TIMER / (MAIN_STATE_BD_TIMER - this.scrollingFrames));
 
-    //Position update
+    // === Position update
     if (this.opacity >= 1) {
         this.scrollingCurrentFrame++;
         this.posY = Math.floor(this.scrollingPixels * this.scrollingCurrentFrame / this.scrollingFrames);
@@ -49,15 +47,17 @@ BDState.graphicalUpdate = function() {
 
     // We set the alpha
     Main.context.globalAlpha = this.opacity;
-    Main.context.drawImage(this.image, 0, this.posY, CANVAS_WIDTH, CANVAS_HEIGHT, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    Main.context.drawImage(IMAGE_BD_INTRO, 0, this.posY, CANVAS_WIDTH, CANVAS_HEIGHT, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
     // We reset the alpha for other graphic operations
     Main.context.globalAlpha = 1;
 }
 
+
+/**
+ * Called when the state is ended. Call the next logical state
+ */
 BDState.stop = function() {
-
-    // normally we have to go to the menu, but fuck it
+    // TODO GO TO MENU
     Main.changeStateTo(MAIN_STATE_INGAME, 0);
-
 }

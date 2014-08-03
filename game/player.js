@@ -5,10 +5,13 @@ Player.prototype.speedY = PLAYER_START_SPEED_Y;
 Player.prototype.speedX = 0;
 Player.prototype.posX = PLAYER_START_X; // middle of the canvas - middle of the player
 Player.prototype.posY = PLAYER_START_Y; // because why not
-Player.prototype.graphicState = 0;
+Player.prototype.graphicState = 0; // Tile to select when the player is displayed. From -4 to 4
 
 
 // methods
+/**
+ *
+ */
 Player.prototype.move = function(direction) {
     if (direction == 'right') {
         this.speedX = PLAYER_SPEED_X;
@@ -21,6 +24,10 @@ Player.prototype.move = function(direction) {
     this.updateGraphicState(direction);
 };
 
+/**
+ * Update the graphicState field
+ * This method is intern, only called in move
+ */
 Player.prototype.updateGraphicState = function(direction) {
     switch (direction) {
         case "left":
@@ -35,6 +42,7 @@ Player.prototype.updateGraphicState = function(direction) {
             }
             break;
 
+            // If the two direction keys are released
         default:
             if (this.graphicState > 0) {
                 this.graphicState--;
@@ -47,22 +55,30 @@ Player.prototype.updateGraphicState = function(direction) {
     }
 }
 
+/**
+ * Physical update of the player.
+ * Position and speed are updated
+ */
 Player.prototype.update = function() {
+    // Position update
     this.posX = Engine.normaliseValue(this.posX + this.speedX);
     this.posY += this.speedY;
-    /* non normalised version :
-    this.posX += this.speedX */
-    // we update Y speed because of gravity (gravity is a bitch)
+
+    // Speed update because of gravity (gravity is a bitch)
     this.speedY -= PLAYER_Y_SPEED_INCRETION;
 }
 
+/**
+ * Physical reset of the player.
+ * Position and speed are reseted
+ */
 Player.prototype.resetToStart = function() {
     this.posX = PLAYER_START_X;
     this.posY = PLAYER_START_Y;
     this.speedY = PLAYER_START_SPEED_Y;
 }
 
-//getters
+// Getters
 Player.prototype.getSpeedX = function() {
     return this.speedX;
 };

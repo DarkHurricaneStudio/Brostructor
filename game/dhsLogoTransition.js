@@ -1,13 +1,13 @@
 var DHSLogoTransition = function() {};
 
-//DHSLogoTransition.prototype.image = null;
+// Fields
 DHSLogoTransition.prototype.opacity = 0;
 
-DHSLogoTransition.init = function() {
-    // this.image = IMAGE_LOGO_DHS;
-}
+// Methods
+DHSLogoTransition.init = function() {}
 
 DHSLogoTransition.coreUpdate = function() {
+    // The TMP is a value going from -1 to 1 to -1 regularly
     var tmp = Main.getStateTimer() / MAIN_STATE_DHS_LOGO_TRANSITION_TIMER;
     if (tmp > 1) {
         tmp = 1;
@@ -16,8 +16,10 @@ DHSLogoTransition.coreUpdate = function() {
             tmp = 1 - tmp;
         }
     }
+    tmp *= 2;
 
-    this.opacity = tmp * 2 * (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER / (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER - MAIN_STATE_DHS_LOGO_TRANSITION_STATIC_TIME));
+    // TMP multiplied by TIMER/TRANSISTION_TIME to increase the value of opacity
+    this.opacity = tmp * (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER / (MAIN_STATE_DHS_LOGO_TRANSITION_TIMER - MAIN_STATE_DHS_LOGO_TRANSITION_STATIC_TIME));
 }
 
 DHSLogoTransition.graphicalUpdate = function() {
@@ -33,8 +35,9 @@ DHSLogoTransition.graphicalUpdate = function() {
     Main.context.globalAlpha = 1;
 
 }
-
+/**
+ * Called when the state is ended. Call the next logical state
+ */
 DHSLogoTransition.stop = function() {
     Main.changeStateTo(MAIN_STATE_BD, MAIN_STATE_BD_TIMER);
-
 }

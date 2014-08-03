@@ -7,7 +7,6 @@ function Utils() {}
  * @param x a value in [0,1]
  */
 Utils.cosinusInterpolation = function(a, b, x) {
-
     var k = (1 - Math.cos(x * Math.PI)) / 2;
     return a * (1 - k) + b * k;
 
@@ -134,9 +133,7 @@ Utils.perlinNoise = function(width, length, maxHeight, stepX, stepY, persistance
         }
 
     }
-
     return map;
-
 }
 
 /*
@@ -246,10 +243,9 @@ Utils.imageDataPerlinNoise = function(width, length, maxHeight, stepX, stepY, pe
 }
 
 Utils.getPlanetCurvePosition = function(x, canvasWidth, deviation) {
-
     return (-((x - canvasWidth / 2) * (x - canvasWidth / 2) * deviation / (canvasWidth * canvasWidth / 4)));
-
 }
+
 
 Utils.sign = function(x) {
     if (x == 0) {

@@ -28,8 +28,6 @@ Enemy.prototype.update = function(engine) {
 
 Enemy.prototype.updatePos = function() {
     this.posX = Engine.normaliseValue(this.posX + this.speedX);
-    /* non normalised version :
-    this.posX += this.speedX */
     this.posY += this.speedY;
 }
 
@@ -46,7 +44,9 @@ Enemy.prototype.updateAI = function(engine) {
         if (this.posX > engine.getPlayer().getPosX()) {
             this.speedX = -this.speedX;
         }
+
         // Robrock's greatest achievment of all time : trying to correct a "feature" (it's obviously not a bug)
+        // Problem about canvas limit
         if (Math.abs(this.posX - engine.getPlayer().getPosX()) > 1024) {
             this.speedX = -this.speedX;
         }
@@ -54,6 +54,7 @@ Enemy.prototype.updateAI = function(engine) {
             this.speedY = -this.speedY;
         }
 
+        // Set the var direction and then call the physical update
         var direction;
         if (this.speedX > 0) {
             direction = "right";
@@ -90,6 +91,7 @@ Enemy.prototype.updateGraphicState = function(direction) {
             }
             break;
 
+            // If the two direction keys are released
         default:
             if (this.graphicState > 0) {
                 this.graphicState--;
@@ -108,7 +110,6 @@ Enemy.prototype.setSpeed = function(speedX, speedY) {
 }
 
 // getters
-
 Enemy.prototype.getPosX = function() {
     return this.posX;
 }

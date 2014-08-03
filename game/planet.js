@@ -3,30 +3,23 @@ var Planet = function() {
     this.offset = 0;
     this.map = document.getElementById('planet_canvas');
     this.renders = new Array(PLANET_WIDTH);
-
 };
 
-// attributes
-// @var map a canvas
-Planet.prototype.map;
-Planet.prototype.renders;
+// Fields
+Planet.prototype.map; // Planet dedicated canvas
+Planet.prototype.renders; // Array containing all the possible renders of one planet
 
 
 // methods
-
-// generate
-// generate a planet (no shit Sherlock)
-// @param context the context from the canvas
 Planet.prototype.generate = function() {
-    // we draw in the canvas
+    // This method generate the planet randomly and also draw the first render on the canvas (last parameter)
     Utils.imageDataPerlinNoise(PLANET_WIDTH, PLANET_HEIGHT, PLANET_MAX_HEIGHT, PLANET_STEP, PLANET_STEP, PLANET_PERSISTANCE, PLANET_OCTAVES_NUMBER, this.map.getContext("2d"));
-    this.renders = new Array(PLANET_WIDTH);
-
 };
 
-
+/**
+ * Insert a new render in the renders array
+ */
 Planet.prototype.render = function(offset) {
-
     this.renders[offset] = document.createElement('canvas');
     this.renders[offset].width = CANVAS_WIDTH;
     this.renders[offset].height = PLANET_HEIGHT;
@@ -45,6 +38,9 @@ Planet.prototype.getMap = function() {
     return this.map;
 };
 
+/**
+ * Return one render
+ */
 Planet.prototype.getRender = function(p_offset) {
     return this.renders[p_offset];
 }
