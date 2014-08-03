@@ -269,7 +269,6 @@ Engine.prototype.checkPlayerEnemyCollisions = function() {
             if (Math.sqrt((playerXCenter - enemyXCenter) * (playerXCenter - enemyXCenter) + (playerYCenter - enemyYCenter) * (playerYCenter - enemyYCenter)) <= minimumRadius) {
                 // oups, we are dead !
                 this.explosions.push(new Explosion(this.player.getPosX(), this.player.getPosY()));
-                console.log("hit by some japanese people");
                 this.endGame();
                 break;
             }
@@ -283,7 +282,6 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
             if (this.enemiesLasers[i].getPosY() + LASER_HEIGHT > this.player.getPosY() && this.enemiesLasers[i].getPosY() < this.player.getPosY() + PLAYER_HEIGHT && this.enemiesLasers[i].getPosX() + LASER_WIDTH > this.player.getPosX() && this.enemiesLasers[i].getPosX() < this.player.getPosX() + PLAYER_WIDTH) {
                 this.enemiesLasers[i] = null;
                 this.explosions.push(new Explosion(this.player.getPosX(), this.player.getPosY()));
-                console.log("hit by laser");
                 this.endGame();
                 break;
             }

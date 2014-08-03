@@ -64,11 +64,5 @@ LoadingGame.graphicalUpdate = function() {
 }
 
 LoadingGame.stop = function() {
-
-    // the game finishes loading
-    console.log("Game succesfully load !");
-
-    // normally we have to go to the menu, but fuck it
     Main.changeStateTo(MAIN_STATE_DHS_LOGO_TRANSITION, MAIN_STATE_DHS_LOGO_TRANSITION_TIMER);
-
 }

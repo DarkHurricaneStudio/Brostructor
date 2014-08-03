@@ -39,8 +39,6 @@ BDState.coreUpdate = function() {
     if (this.opacity >= 1) {
         this.scrollingCurrentFrame++;
         this.posY = Math.floor(this.scrollingPixels * this.scrollingCurrentFrame / this.scrollingFrames);
-
-        console.log(this.posY / this.scrollingPixels + "     " + this.scrollingCurrentFrame / this.scrollingFrames);
     }
 }
 
