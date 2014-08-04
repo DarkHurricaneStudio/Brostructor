@@ -38,6 +38,85 @@ Engine.prototype.fpsCount = 0;
 
 
 // methods
+Engine.prototype.update = function() {
+    // ========================== POSITIONS
+    // Player position
+    this.player.update();
+    // Enemies position
+    for (var i = 0; i < this.enemies.length; i++) {
+        if (this.enemies[i] != null) {
+            this.enemies[i].update(this);
+        }
+    }
+
+    // ======================== CAMERA
+    if (this.player.getSpeedX() != 0) {
+        this.cameraSpeed = this.cameraSpeed - this.player.getSpeedX() / 32;
+        if (Math.abs(this.cameraSpeed) >= PLAYER_SPEED_X) {
+            this.cameraSpeed = -this.player.getSpeedX();
+        }
+    }
+    if (this.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
+        this.cameraSpeed = -(this.convertPosition(this.player.getPosX()) - PLAYER_MIDDLE_POSITION) / 32;
+    } else {
+        this.cameraSpeed = 0;
+    }
+    // we update the offset position
+    if (this.cameraSpeed != 0) {
+        this.setOffset(this.offset + Math.round(this.cameraSpeed));
+    }
+
+    // ============= LASERS
+    if (this.laserRecovery > 0) {
+        this.laserRecovery--;
+    }
+    // Player lasers
+    for (var i = this.lasers.length - 1; i >= 0; i--) {
+        if (this.lasers[i] != null) {
+            this.lasers[i].update();
+            // If the laser is off the screen, we delete it
+            if (this.lasers[i].getPosY() + LASER_HEIGHT < 0) {
+                this.lasers[i] = null;
+            }
+        }
+    }
+    // Enemies lasers
+    for (var i = this.enemiesLasers.length - 1; i >= 0; i--) {
+        if (this.enemiesLasers[i] != null) {
+            this.enemiesLasers[i].update();
+            // If the laser is off the screen, we delete it
+            if (this.enemiesLasers[i].getPosY() + LASER_HEIGHT < 0) {
+                this.enemiesLasers[i] = null;
+            }
+        }
+    }
+
+    // ================ EXPLOSIONS
+    for (var i = this.explosions.length - 1; i >= 0; i--) {
+        if (this.explosions[i] != null && this.explosions[i].update()) {
+            this.explosions[i] = null;
+        }
+
+    };
+
+    // ===================== COLLISIONS
+    this.checkEnemyLaserCollisions();
+    this.checkCityLaserCollisions();
+    this.checkPlayerEnemyCollisions();
+    this.checkPlayerLaserCollisions();
+
+
+    if (this.loadingLevel) {
+        this.generateLevel();
+    }
+
+    if (this.player.getPosY() <= PLAYER_Y_NEXT_LEVEL) {
+        this.points += POINTS_PLANET;
+        this.loadingLevel = true;
+    }
+};
+
+
 Engine.prototype.generateLevel = function() {
     this.loadingLevel = true;
     this.level++;
@@ -82,117 +161,6 @@ Engine.prototype.spawnCities = function() {
     }
 }
 
-
-
-
-
-Engine.prototype.convertPosition = function(old_x) {
-
-    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x) / PLANET_WIDTH) * PLANET_WIDTH);
-
-    return x;
-};
-
-Engine.normaliseValue = function(old_x) {
-
-    var x = old_x - (Math.floor(old_x / PLANET_WIDTH) * PLANET_WIDTH);
-
-    return x;
-}
-
-
-Engine.prototype.setOffset = function(newOffset) {
-
-    this.offset = Engine.normaliseValue(newOffset);
-
-};
-
-Engine.prototype.update = function() {
-    // we update the player position
-    this.player.update();
-
-    // we update enemies position
-    for (var i = 0; i < this.enemies.length; i++) {
-        if (this.enemies[i] != null) {
-            this.enemies[i].update(this);
-        }
-    }
-
-    // we update the camera speed
-
-    if (this.player.getSpeedX() != 0) {
-
-        this.cameraSpeed = this.cameraSpeed - this.player.getSpeedX() / 32;
-        if (Math.abs(this.cameraSpeed) >= PLAYER_SPEED_X) {
-            this.cameraSpeed = -this.player.getSpeedX();
-        }
-
-    }
-    if (this.convertPosition(this.player.getPosX()) != PLAYER_MIDDLE_POSITION || this.cameraSpeed != 0) { // we decrease speed until we meet the center of the screen
-
-        this.cameraSpeed = -(this.convertPosition(this.player.getPosX()) - PLAYER_MIDDLE_POSITION) / 32;
-
-    } else {
-        this.cameraSpeed = 0;
-
-    }
-
-
-    // we update the offset position
-    if (this.cameraSpeed != 0) {
-        this.setOffset(this.offset + Math.round(this.cameraSpeed));
-    }
-
-
-    // we update lasers
-    if (this.laserRecovery > 0) {
-        this.laserRecovery--;
-    }
-
-    for (var i = this.lasers.length - 1; i >= 0; i--) {
-        if (this.lasers[i] != null) {
-            this.lasers[i].update();
-            // If the laser is off the screen, we delete it
-            if (this.lasers[i].getPosY() + LASER_HEIGHT < 0) {
-                this.lasers[i] = null;
-            }
-        }
-    }
-
-    for (var i = this.enemiesLasers.length - 1; i >= 0; i--) {
-        if (this.enemiesLasers[i] != null) {
-            this.enemiesLasers[i].update();
-            // If the laser is off the screen, we delete it
-            if (this.enemiesLasers[i].getPosY() + LASER_HEIGHT < 0) {
-                this.enemiesLasers[i] = null;
-            }
-        }
-    }
-
-    // We update explosions
-    for (var i = this.explosions.length - 1; i >= 0; i--) {
-        if (this.explosions[i] != null && this.explosions[i].update()) {
-            this.explosions[i] = null;
-        }
-
-    };
-
-    // We check the collisions
-    this.checkEnemyLaserCollisions();
-    this.checkCityLaserCollisions();
-    this.checkPlayerEnemyCollisions();
-    this.checkPlayerLaserCollisions();
-
-    if (this.loadingLevel) {
-        this.generateLevel();
-    }
-
-    if (this.player.getPosY() <= PLAYER_Y_NEXT_LEVEL) {
-        this.points += POINTS_PLANET;
-        this.loadingLevel = true;
-    }
-};
-
 Engine.prototype.createLaser = function() {
     if (this.laserRecovery == 0) {
         this.lasers[this.laserCount] = new Laser(this.getPlayer().getPosX() + PLAYER_WIDTH / 2, this.getPlayer().getPosY() + PLAYER_HEIGHT / 2, true);
@@ -209,6 +177,8 @@ Engine.prototype.addEnemyLaser = function(posX, posY) {
     this.enemiesLasers[this.enemiesLasers.length] = new Laser(posX, posY, false);
 }
 
+
+// ================= Collisions
 Engine.prototype.checkEnemyLaserCollisions = function() {
     for (var i = this.enemies.length - 1; i >= 0; i--) {
         if (this.enemies[i] != null) { // useless ?
@@ -253,7 +223,6 @@ Engine.prototype.checkCityLaserCollisions = function() {
 }
 
 Engine.prototype.checkPlayerEnemyCollisions = function() {
-
     // we decide hat player and enemy are circle with a radius of 32/2 = 16
     // if the distance between the center of the player and the center of the enemy is lower than 32 (16 +16), bim ! Else, not bim (for the moment :D)
     var minimumRadius = PLAYER_WIDTH / 2 + ENEMY_WIDTH / 2;
@@ -289,6 +258,17 @@ Engine.prototype.checkPlayerLaserCollisions = function() {
     }
 };
 
+
+// ============ Others
+Engine.normaliseValue = function(old_x) {
+    var x = old_x - (Math.floor(old_x / PLANET_WIDTH) * PLANET_WIDTH);
+    return x;
+}
+
+Engine.prototype.setOffset = function(newOffset) {
+    this.offset = Engine.normaliseValue(newOffset);
+};
+
 Engine.prototype.endGame = function() {
     Game.stop();
 }
@@ -298,7 +278,12 @@ Engine.prototype.nextlevel = function() {
     this.generateLevel();
 }
 
-//getters
+Engine.prototype.convertPosition = function(old_x) {
+    var x = (this.offset + old_x) - (Math.floor((this.offset + old_x) / PLANET_WIDTH) * PLANET_WIDTH);
+    return x;
+};
+
+// ============ Getters
 Engine.prototype.getPlanet = function() {
     return this.planet;
 };

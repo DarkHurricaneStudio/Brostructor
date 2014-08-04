@@ -1,6 +1,6 @@
 var Main = function() {};
 
-Main.audioManager;
+Main.audioManager; // Only object to manage audio
 
 Main.fpsCount = 0; // used to compute fps
 Main.initDate = 0; // used to compute fps
@@ -9,12 +9,10 @@ Main.gameCanvas; // the canvas used to draw enemies, lasers, scoring, HUD, etc.
 Main.backCanvas; // the canvas used for the background and planet display
 Main.context; // the context of Main.gameCanvas
 
-Main.state = MAIN_STATE_MAIN_MENU; // the actual state
-Main.stateTimer = 0; // used for transistions
-
+Main.state; // the actual state
+Main.stateTimer = 0; // Duration of a state. Given in parameter when the state is changed
 
 Main.init = function() {
-
     // used to debug the fps during the game
     Main.fpsCount = 0;
     Main.initDate = window.performance.now();
@@ -29,18 +27,17 @@ Main.init = function() {
     // we create the audioManager object, to play sounds
     Main.audioManager = new AudioManager();
 
-
-    // DEBUG !
-    // we start with the game state (no menu at this time)
+    // we start with the loading state
     Main.state = MAIN_STATE_LOADING_GAME;
+
     // we init the first state
     LoadingGame.init();
-
-
 };
 
+/**
+ * Main graphical update method. General method
+ */
 Main.graphicalUpdate = function() {
-
     // we request the next painting
     requestAnimationFrame(Main.graphicalUpdate);
 
@@ -76,8 +73,10 @@ Main.graphicalUpdate = function() {
 
 }
 
+/**
+ * Main core update method. General method
+ */
 Main.coreUpdate = function() {
-
     // we choose what to update
     switch (Main.state) {
         case MAIN_STATE_LOADING_GAME:
@@ -128,6 +127,7 @@ Main.changeStateTo = function(state, newTimer) {
             LoadingGame.init();
             break;
         case MAIN_STATE_INGAME: // nothing to do here
+            Game.init();
             break;
         case MAIN_STATE_DHS_LOGO_TRANSITION:
             DHSLogoTransition.init(); // this method does nothing
@@ -146,13 +146,13 @@ Main.getStateTimer = function() {
     return this.stateTimer;
 }
 
-// real game part
+
+
+// TRUE LAUNCHING CODE
 
 Main.init();
 
 window.addEventListener('load', function() {
-
-
     // If we don't get the canvacs, stop
     if (!Main.gameCanvas || !Main.gameCanvas.getContext) {
         return;
@@ -163,13 +163,11 @@ window.addEventListener('load', function() {
         return;
     }
 
-
-
-
-    // we set some serious business
     // Main loop at 80FPS
     setInterval(Main.coreUpdate, 12.5);
-    // and we request to repaint the game with the Game.graphicalUpdate
+
+    // First graphical request (other are made in the method)
     requestAnimationFrame(Main.graphicalUpdate);
-    // false beacause not true
+
+    // useCapture parameter. Don't know what is it. So fuck it
 }, false);

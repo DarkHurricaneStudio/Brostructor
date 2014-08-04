@@ -1,10 +1,11 @@
+/*
+ * Advanced display system
+ */
 var Display = function(canvas, backCanvas) {
-
     this.context = canvas.getContext('2d');
     this.height = canvas.height;
     this.width = canvas.width;
     this.backContext = backCanvas.getContext('2d');
-
 };
 
 //attributes
@@ -13,27 +14,12 @@ Display.prototype.backContext;
 Display.prototype.width;
 Display.prototype.height;
 
-Display.prototype.imageBackground;
-Display.prototype.HUD;
-Display.prototype.explosionTiles;
-Display.prototype.playerTiles;
-
 // Methods
 Display.prototype.drawBackground = function() {
-    this.backContext.drawImage(this.imageBackground, 0, 0);
+    this.backContext.drawImage(IMAGE_GAME_BACKGROUND, 0, 0);
 }
 
 Display.prototype.drawPlanet = function(planet, engine) {
-    /*
-    var map = planet.getMap();
-
-    for (var i = 0; i < this.width; i++) {
-        var y = Utils.getPlanetCurvePosition(i, this.width, PLANET_DEVIATION);
-        var mapPos = engine.convertPosition(-i);
-        this.backContext.drawImage(map, mapPos, 0, 1, PLANET_HEIGHT, i, y, 1, PLANET_HEIGHT);
-
-    }
-    */
     if (planet.getRender(PLANET_WIDTH - 1 - engine.getOffset()) == null) {
         planet.render(PLANET_WIDTH - 1 - engine.getOffset());
     }
@@ -45,7 +31,7 @@ Display.prototype.drawPlayer = function(player, engine) {
     this.context.fillStyle = '#ff0000';
     var x = engine.convertPosition(player.getPosX());
     var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + player.getPosY();
-    this.context.drawImage(this.playerTiles, PLAYER_WIDTH * (Math.floor(player.getGraphicState() / PLAYER_FRAMES_PER_ANIMATION) + PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    this.context.drawImage(IMAGE_BROSTRUCTOR, PLAYER_WIDTH * (Math.floor(player.getGraphicState() / PLAYER_FRAMES_PER_ANIMATION) + PLAYER_TRANSITION_FRAMES), 0, PLAYER_WIDTH, PLAYER_HEIGHT, x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 }
 
 Display.prototype.drawEnemy = function(enemy, engine) {
@@ -56,9 +42,9 @@ Display.prototype.drawEnemy = function(enemy, engine) {
 
         var tmp;
         if (enemy.isKamikaze()) {
-            this.context.drawImage(this.kamikazeTiles, ENEMY_WIDTH * (Math.floor(enemy.getGraphicState() / ENEMY_FRAMES_PER_ANIMATION) + ENEMY_TRANSITION_FRAMES), 0, ENEMY_WIDTH, ENEMY_HEIGHT, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+            this.context.drawImage(IMAGE_KAMIKAZE, ENEMY_WIDTH * (Math.floor(enemy.getGraphicState() / ENEMY_FRAMES_PER_ANIMATION) + ENEMY_TRANSITION_FRAMES), 0, ENEMY_WIDTH, ENEMY_HEIGHT, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
         } else {
-            this.context.drawImage(this.enemyTiles, ENEMY_WIDTH * (Math.floor(enemy.getGraphicState() / ENEMY_FRAMES_PER_ANIMATION) + ENEMY_TRANSITION_FRAMES), 0, ENEMY_WIDTH, ENEMY_HEIGHT, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+            this.context.drawImage(IMAGE_ENEMY, ENEMY_WIDTH * (Math.floor(enemy.getGraphicState() / ENEMY_FRAMES_PER_ANIMATION) + ENEMY_TRANSITION_FRAMES), 0, ENEMY_WIDTH, ENEMY_HEIGHT, x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
         }
     }
 }
@@ -86,12 +72,12 @@ Display.prototype.drawExplosion = function(explosion, engine) {
     if (explosion != null) {
         var x = engine.convertPosition(explosion.getPosX());
         var y = Utils.getPlanetCurvePosition(x, this.width, PLANET_DEVIATION) + explosion.getPosY();
-        this.context.drawImage(this.explosionTiles, EXPLOSION_WIDTH * explosion.getGraphicState(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, x, y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
+        this.context.drawImage(IMAGE_EXPLOSION, EXPLOSION_WIDTH * explosion.getGraphicState(), 0, EXPLOSION_WIDTH, EXPLOSION_HEIGHT, x, y, EXPLOSION_WIDTH, EXPLOSION_HEIGHT);
     }
 }
 
 Display.prototype.drawHUD = function(engine) {
-    this.context.drawImage(this.HUD, 0, 0);
+    this.context.drawImage(IMAGE_HUD, 0, 0);
 
     this.context.font = "20px Arial";
     this.context.fillStyle = "#FFFFFF";
@@ -104,8 +90,10 @@ Display.prototype.drawLoadingScreen = function() {
     this.context.fillText("Loading...", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
 }
 
+/**
+ * Dedicated draw method for ingame state
+ */
 Display.prototype.draw = function(engine) {
-
     if (!engine.isLoadingLevel()) {
         // we only draw the planet if there is a movement
         if (engine.cameraSpeed != 0 || engine.getOffset() == 0) {
@@ -132,19 +120,3 @@ Display.prototype.draw = function(engine) {
         this.drawLoadingScreen();
     }
 };
-
-
-Display.prototype.load = function() {
-
-    this.imageBackground = IMAGE_GAME_BACKGROUND;
-    this.HUD = IMAGE_HUD;
-    this.explosionTiles = IMAGE_EXPLOSION;
-    this.playerTiles = IMAGE_BROSTRUCTOR;
-
-    this.enemyTiles = IMAGE_ENEMY;
-
-    this.kamikazeTiles = IMAGE_KAMIKAZE;
-
-    Game.display.drawBackground();
-
-}
