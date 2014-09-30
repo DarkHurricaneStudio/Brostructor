@@ -4,7 +4,10 @@ var DHSLogoTransition = function() {};
 DHSLogoTransition.prototype.opacity = 0;
 
 // Methods
-DHSLogoTransition.init = function() {}
+DHSLogoTransition.init = function() {
+     Main.context.fillStyle = "black";
+    Main.context.fillRect(0, 0, Main.gameCanvas.width, Main.gameCanvas.height); 
+}
 
 DHSLogoTransition.coreUpdate = function() {
     // The TMP is a value going from -1 to 1 to -1 regularly
@@ -24,15 +27,15 @@ DHSLogoTransition.coreUpdate = function() {
 
 DHSLogoTransition.graphicalUpdate = function() {
     //we hide the background
-    Main.context.fillStyle = "black";
-    Main.context.fillRect(0, 0, Main.gameCanvas.width, Main.gameCanvas.height);
+   
 
     // We set the alpha
     Main.context.globalAlpha = this.opacity;
     Main.context.drawImage(IMAGE_LOGO_DHS, 0, 0);
 
-    // We reset the alpha for other graphic operations
-    Main.context.globalAlpha = 1;
+    // Next step begin by alpha 0, so no reset
+    // We reset the alpha for other graphic operations 
+    //Main.context.globalAlpha = 1;
 
 }
 /**
