@@ -38,6 +38,16 @@ BDState.coreUpdate = function() {
         this.scrollingCurrentFrame++;
         this.posY = Math.floor(this.scrollingPixels * this.scrollingCurrentFrame / this.scrollingFrames);
     }
+
+
+    // If space is pushed, we end the state
+    if (keys[KEY_SPACE] == true){
+        // First we cancel the input
+        keys[KEY_SPACE] = false;
+        
+        // Then we end the state
+        Main.setStateTimer(MAIN_STATE_BD_FADE_TIME);
+    }
 }
 
 BDState.graphicalUpdate = function() {

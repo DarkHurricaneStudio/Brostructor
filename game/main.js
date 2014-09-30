@@ -146,7 +146,9 @@ Main.getStateTimer = function() {
     return this.stateTimer;
 }
 
-
+Main.setStateTimer = function(newTime) {
+    this.stateTimer = newTime;
+}
 
 // TRUE LAUNCHING CODE
 
